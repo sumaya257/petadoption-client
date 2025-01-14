@@ -6,28 +6,29 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="bg-white shadow-md mb-10">
+      <div className="container mx-auto px-2  flex justify-between items-center">
         {/* Logo and Website Name */}
-        <div className="flex items-center gap-2">
+        <NavLink to='/' className="flex items-center border pr-3 rounded-lg border-green-500 my-1">
           <img
-            src="/logo.png" // Replace with your logo path
+            src="https://i.ibb.co.com/CWr6zJ5/pet-logo-removebg-preview.png" // Replace with your logo path
             alt="Pet Adoption Logo"
-            className="h-10 w-10 object-contain"
+            className="h-20 w-24  object-contain"
           />
           <span className="text-2xl font-bold text-green-600">
             AdoptNest
           </span>
-        </div>
+        </NavLink>
 
         {/* Navigation Links (Hidden on md screens) */}
         <div className="hidden md:flex items-center gap-6 justify-center flex-grow">
-          <a href="/" className="text-gray-800 hover:text-green-500">
+          <a href="/" className="text-gray-800  hover:text-green-500 hover:btn">
             Home
           </a>
           <a href="/pet-listing" className="text-gray-800 hover:text-green-500">
