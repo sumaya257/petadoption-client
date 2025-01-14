@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,9 +7,35 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import loginAnimation from "../assets/lottie/login.json";
 import Lottie from "lottie-react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+   const {signIn} = useContext(AuthContext)
+
+  // Form Validation Schema
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
+
+  // Form Submit Handler
+  const handleSubmit = (values) => {
+    // Example logic for form submission
+    console.log("Form values:", values);
+    signIn(email,password)
+    .then(result=>{
+        const user = result.user
+        console.log(user)
+    })
+    alert("Login successful!"); // Replace this with actual login logic
+  };
 
   return (
     <div className="container mx-auto px-4 py-6 rounded-2xl flex items-center justify-center bg-gradient-to-r from-green-100 to-green-500">
@@ -21,42 +47,71 @@ const Login = () => {
             Welcome back! Please login to your account.
           </p>
 
-          <form className="space-y-4">
-            <div>
-              <Label htmlFor="email" className="text-gray-700">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                className="mt-2"
-              />
-            </div>
-            <div className="relative">
-              <Label htmlFor="password" className="text-gray-700">
-                Password
-              </Label>
-              <Input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                className="mt-2 pr-10"
-              />
-              {/* Toggle Password Visibility */}
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-10 text-gray-500 hover:text-gray-700 focus:outline-none"
-              >
-                {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
-              </button>
-            </div>
-            <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
-              Login
-            </Button>
-          </form>
+          {/* Formik Form */}
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting }) => (
+              <Form className="space-y-4">
+                {/* Email Field */}
+                <div>
+                  <Label htmlFor="email" className="text-gray-700">
+                    Email
+                  </Label>
+                  <Field
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    className="mt-2 w-full border-gray-300 rounded-lg p-2"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
 
+                {/* Password Field */}
+                <div className="relative">
+                  <Label htmlFor="password" className="text-gray-700">
+                    Password
+                  </Label>
+                  <Field
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    className="mt-2 w-full border-gray-300 rounded-lg p-2 pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-10 text-gray-500 hover:text-gray-700 focus:outline-none"
+                  >
+                    {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                  </button>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+
+                {/* Login Button */}
+                <Button
+                  type="submit"
+                  className="w-full bg-green-500 hover:bg-green-600 text-white"
+                >
+                  Login
+                </Button>
+              </Form>
+            )}
+          </Formik>
+
+          {/* Divider */}
           <div className="flex items-center justify-between mt-4">
             <hr className="w-full border-gray-300" />
             <span className="px-2 text-gray-500">or</span>
