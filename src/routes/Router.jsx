@@ -3,6 +3,8 @@ import MainLayout from "../main/MainLayout";
 import Home from "../pages/Home";
 import PetListing from "../pages/PetListing";
 import DonationCampaigns from "../pages/DonationCampaigns";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 
 
@@ -23,6 +25,14 @@ export const router = createBrowserRouter([
             {
                 path:'/donation-campaigns',
                 element:<DonationCampaigns></DonationCampaigns>
+            },
+            {
+                path:'/login',
+                element:<Login></Login>
+            },
+            {
+                path:'/register',
+                element:<Register></Register>
             }
         ]
     }
