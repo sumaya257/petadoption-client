@@ -31,7 +31,7 @@ const CallToAction = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-green-100 to-green-500 text-black container mx-auto mt-16 py-10 px-4 rounded-2xl">
+    <div className="bg-gradient-to-r from-green-100 to-green-500 text-black container mx-auto mt-16 py-6 px-4 rounded-2xl">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-4">Find Your Forever Friend</h2>
         <p className="text-xl mb-6">
