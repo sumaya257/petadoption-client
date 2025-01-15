@@ -5,18 +5,16 @@ import Select from 'react-select';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 
-// Cloudinary Configuration
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/your-cloud-name/upload';
-const CLOUDINARY_PRESET = 'your-upload-preset';
-
 const AddPet = () => {
-  const [imageUrl, setImageUrl] = useState('');
   const [categories] = useState([
     { value: 'dog', label: 'Dog' },
     { value: 'cat', label: 'Cat' },
     { value: 'rabbit', label: 'Rabbit' },
     { value: 'fish', label: 'Fish' },
   ]);
+
+  // State to store uploaded image URL
+  const [imageUrl, setImageUrl] = useState('');
 
   // Tiptap editor setup
   const editor = useEditor({
@@ -26,17 +24,21 @@ const AddPet = () => {
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
+    if (!file) return;
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('upload_preset', 'petAdoption'); // Replace with your actual preset
+    formData.append('cloud_name', 'dxk6blzfu'); // Replace with your actual cloud name
 
     try {
-      const res = await axios.post(CLOUDINARY_UPLOAD_URL, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const res = await fetch('https://api.cloudinary.com/v1_1/dxk6blzfu/image/upload', {
+        method: 'POST',
+        body: formData,
       });
-      setImageUrl(res.data.secure_url);
+      const data = await res.json();
+      setImageUrl(data.url); // Save the image URL to state
     } catch (error) {
-      console.error('Error uploading image', error);
+      console.error('Error uploading image:', error);
     }
   };
 
@@ -72,12 +74,12 @@ const AddPet = () => {
           };
           console.log(petData)
 
-          try {
-            const response = await axios.post('/api/pets', petData);
-            console.log('Pet added successfully', response.data);
-          } catch (error) {
-            console.error('Error adding pet', error);
-          }
+        //   try {
+        //     const response = await axios.post('/api/pets', petData);
+        //     console.log('Pet added successfully', response.data);
+        //   } catch (error) {
+        //     console.error('Error adding pet', error);
+        //   }
         }}
       >
         {({ setFieldValue }) => (
@@ -120,7 +122,7 @@ const AddPet = () => {
                 component={Select}
                 options={categories}
                 className="select select-bordered w-full"
-                onChange={option => setFieldValue('category', option.value)} // Handle React Select change
+                onChange={(option) => setFieldValue('category', option.value)} // Handle React Select change
               />
               <ErrorMessage name="category" component="div" className="text-red-500 text-sm" />
             </div>
