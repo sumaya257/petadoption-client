@@ -13,7 +13,7 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {createUser} = useContext(AuthContext)
+  const { createUser } = useContext(AuthContext);
 
   // Validation Schema using Yup
   const validationSchema = Yup.object({
@@ -30,20 +30,45 @@ const Register = () => {
   });
 
   // Submit Handler with SweetAlert2
-  const handleSubmit = (values) => {
-    console.log(values)
-    createUser(values.email,values.password)
-    .then(result =>{
-        const loggedUser = result.user
-        console.log(loggedUser)
-    })
-    Swal.fire({
-      title: "Success!",
-      text: `Welcome, ${values.name}! Your account has been registered.`,
-      icon: "success",
-      confirmButtonText: "OK",
-      confirmButtonColor: "#4CAF50",
-    });
+  const handleSubmit = (values, { resetForm }) => {
+    console.log(values);
+    createUser(values.email, values.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+
+        // Success Alert
+        Swal.fire({
+          title: "Success!",
+          text: `Welcome, ${values.name}! Your account has been registered.`,
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#4CAF50",
+        });
+
+        // Reset Form
+        resetForm();
+      })
+      .catch((error) => {
+        // Handle duplicate email error or other auth errors
+        if (error.code === "auth/email-already-in-use") {
+          Swal.fire({
+            title: "Error!",
+            text: "This email is already registered. Please use a different email.",
+            icon: "error",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#F44336",
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "An error occurred. Please try again.",
+            icon: "error",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#F44336",
+          });
+        }
+      });
   };
 
   return (

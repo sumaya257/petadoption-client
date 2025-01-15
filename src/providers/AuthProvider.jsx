@@ -17,11 +17,13 @@ const AuthProvider = ({children}) => {
 
     const signIn = (email,password)=>{
         setLoading(true)
-        return signInWithEmailAndPassword(email,password)
+        return signInWithEmailAndPassword(auth,email,password)
     }
     const logOut = () =>{
         setLoading(loading)
-        return signOut(auth)
+        return signOut(auth).finally(() => {
+            setLoading(false); // Set loading to false after logout completes
+        });
     }
 
     useEffect(()=>{

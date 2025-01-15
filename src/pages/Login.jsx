@@ -10,10 +10,11 @@ import Lottie from "lottie-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-   const {signIn} = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext);
 
   // Form Validation Schema
   const validationSchema = Yup.object({
@@ -26,15 +27,48 @@ const Login = () => {
   });
 
   // Form Submit Handler
-  const handleSubmit = (values) => {
-    // Example logic for form submission
-    console.log("Form values:", values);
-    signIn(email,password)
-    .then(result=>{
-        const user = result.user
-        console.log(user)
-    })
-    alert("Login successful!"); // Replace this with actual login logic
+  const handleSubmit = (values, { resetForm }) => {
+    const { email, password } = values;
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        // Show success alert
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful!",
+          text: `Welcome back, ${user.displayName || "User"}!`,
+          confirmButtonColor: "#4CAF50",
+        });
+         // Reset Form
+         resetForm();
+      })
+      .catch((error) => {
+        // Handle specific error cases
+        if (error.code === "auth/user-not-found") {
+          Swal.fire({
+            icon: "error",
+            title: "Email Not Registered",
+            text: "Your email is not registered. Please register first.",
+            confirmButtonColor: "#FF5733",
+          });
+        } else if (error.code === "auth/wrong-password") {
+          Swal.fire({
+            icon: "error",
+            title: "Invalid Password",
+            text: "The password you entered is incorrect. Please try again.",
+            confirmButtonColor: "#FF5733",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: "Something went wrong. Please try again.",
+            confirmButtonColor: "#FF5733",
+          });
+        }
+        console.error("Login Error:", error);
+      });
   };
 
   return (
@@ -53,7 +87,7 @@ const Login = () => {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting }) => (
+            {() => (
               <Form className="space-y-4">
                 {/* Email Field */}
                 <div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,49 +7,98 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { NavLink } from "react-router";
+import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut,loading } = useContext(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const handleLogOut=()=>{
+    logOut()
+    .then(()=>{
+      Swal.fire(
+        "Logged Out!",
+        "You have been successfully logged out.",
+        "success"
+      )
+    })
+    .catch(error=>(Console.log(error)))
+  }
+
+  // Centralized Auth Buttons
+  const AuthButtons = () => {
+    if (loading) {
+      return (
+        <Button variant="default" className="bg-gray-500 text-white" disabled>
+          Loading...
+        </Button>
+      );
+    }
+
+    if (user) {
+      return (
+        <Button
+          variant="default"
+          className="bg-red-500 text-white"
+          onClick={handleLogOut}
+        >
+          Logout
+        </Button>
+      );
+    }
+    return (
+      <>
+        <Button variant="default" className="bg-green-500 text-white">
+          <NavLink to="/login">Login</NavLink>
+        </Button>
+        <Button variant="outline" className="text-green-500 border-green-500">
+          <NavLink to="/register">Register</NavLink>
+        </Button>
+      </>
+    );
+  };
 
   return (
     <nav className="bg-white shadow-md mb-10 sticky inset-0 z-10">
-      <div className="container mx-auto px-2  flex justify-between items-center">
+      <div className="container mx-auto px-2 flex justify-between items-center">
         {/* Logo and Website Name */}
-        <NavLink to='/' className="flex items-center border pr-3 rounded-lg border-green-500 my-1">
+        <NavLink
+          to="/"
+          className="flex items-center border pr-3 rounded-lg border-green-500 my-1"
+        >
           <img
-            src="https://i.ibb.co.com/CWr6zJ5/pet-logo-removebg-preview.png" // Replace with your logo path
+            src="https://i.ibb.co.com/CWr6zJ5/pet-logo-removebg-preview.png" // your logo path
             alt="Pet Adoption Logo"
-            className="h-20 w-24  object-contain"
+            className="h-20 w-24 object-contain"
           />
-          <span className="text-2xl font-bold text-green-600">
-            AdoptNest
-          </span>
+          <span className="text-2xl font-bold text-green-600">AdoptNest</span>
         </NavLink>
 
-        {/* Navigation Links (Hidden on md screens) */}
+        {/* Navigation Links (Hidden on sm screens) */}
         <div className="hidden md:flex items-center gap-6 justify-center flex-grow">
-          <a href="/" className="text-gray-800  hover:text-green-500 hover:btn">
+          <NavLink
+            to="/"
+            className="text-gray-800 hover:text-green-500 hover:btn"
+          >
             Home
-          </a>
-          <a href="/pet-listing" className="text-gray-800 hover:text-green-500">
+          </NavLink>
+          <NavLink
+            to="/pet-listing"
+            className="text-gray-800 hover:text-green-500"
+          >
             Pet Listing
-          </a>
-          <a
-            href="/donation-campaigns"
+          </NavLink>
+          <NavLink
+            to="/donation-campaigns"
             className="text-gray-800 hover:text-green-500"
           >
             Donation Campaigns
-          </a>
+          </NavLink>
         </div>
 
-        {/* Login/Register Buttons */}
+        {/* Login/Register or Logout Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="default" className="bg-green-500 text-white">
-            <a href="/login">Login</a>
-          </Button>
-          <Button variant="outline" className="text-green-500 border-green-500">
-            <a href="/register">Register</a>
-          </Button>
+          <AuthButtons />
         </div>
 
         {/* Hamburger Menu for Mobile */}
@@ -78,29 +127,32 @@ const Navbar = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 bg-white shadow-lg">
             <DropdownMenuItem>
-              <a href="/" className="w-full text-left text-gray-800 hover:bg-green-100">
+              <NavLink
+                to="/"
+                className="w-full text-left text-gray-800 hover:bg-green-100"
+              >
                 Home
-              </a>
+              </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <a href="/pet-listing" className="w-full text-left text-gray-800 hover:bg-green-100">
+              <NavLink
+                to="/pet-listing"
+                className="w-full text-left text-gray-800 hover:bg-green-100"
+              >
                 Pet Listing
-              </a>
+              </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <a href="/donation-campaigns" className="w-full text-left text-gray-800 hover:bg-green-100">
+              <NavLink
+                to="/donation-campaigns"
+                className="w-full text-left text-gray-800 hover:bg-green-100"
+              >
                 Donation Campaigns
-              </a>
+              </NavLink>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <a href="/login" className="w-full text-left text-gray-800 hover:bg-green-100">
-                Login
-              </a>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <a href="/register" className="w-full text-left text-gray-800 hover:bg-green-100">
-                Register
-              </a>
+            <DropdownMenuItem className="flex flex-col gap-2">
+              {/* Reuse Auth Buttons */}
+              <AuthButtons />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
