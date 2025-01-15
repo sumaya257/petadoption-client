@@ -9,43 +9,58 @@ import {
 import { NavLink } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import Skeleton from "react-loading-skeleton";
 
 const Navbar = () => {
-  const { user, logOut,loading } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const handleLogOut=()=>{
+
+  const handleLogOut = () => {
     logOut()
-    .then(()=>{
-      Swal.fire(
-        "Logged Out!",
-        "You have been successfully logged out.",
-        "success"
-      )
-    })
-    .catch(error=>(Console.log(error)))
-  }
+      .then(() => {
+        Swal.fire("Logged Out!", "You have been successfully logged out.", "success");
+      })
+      .catch((error) => console.log(error));
+  };
 
   // Centralized Auth Buttons
   const AuthButtons = () => {
     if (loading) {
-      return (
-        <Button variant="default" className="bg-gray-500 text-white" disabled>
-          Loading...
-        </Button>
-      );
+      return <Skeleton circle={true} height={40} width={40} />; // Small circular image skeleton
     }
 
     if (user) {
       return (
-        <Button
-          variant="default"
-          className="bg-red-500 text-white"
-          onClick={handleLogOut}
-        >
-          Logout
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center space-x-2">
+              {/* Profile Picture */}
+              <img
+                src={user.photoURL || "https://i.ibb.co.com/VWz30mJ/R.png"}  // Default image if no user image exists
+                alt="Profile"
+                className="w-16 h-16 bg-green-100 rounded-full"
+              />
+            </button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent className="w-56 bg-white shadow-lg">
+            <DropdownMenuItem>
+              <NavLink
+                to="/dashboard"
+                className="w-full text-left text-gray-800 hover:bg-green-100"
+              >
+                Dashboard
+              </NavLink>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogOut} className="text-red-500">
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     }
+    
     return (
       <>
         <Button variant="default" className="bg-green-500 text-white">
@@ -76,22 +91,13 @@ const Navbar = () => {
 
         {/* Navigation Links (Hidden on sm screens) */}
         <div className="hidden md:flex items-center gap-6 justify-center flex-grow">
-          <NavLink
-            to="/"
-            className="text-gray-800 hover:text-green-500 hover:btn"
-          >
+          <NavLink to="/" className="text-gray-800 hover:text-green-500 hover:btn">
             Home
           </NavLink>
-          <NavLink
-            to="/pet-listing"
-            className="text-gray-800 hover:text-green-500"
-          >
+          <NavLink to="/pet-listing" className="text-gray-800 hover:text-green-500">
             Pet Listing
           </NavLink>
-          <NavLink
-            to="/donation-campaigns"
-            className="text-gray-800 hover:text-green-500"
-          >
+          <NavLink to="/donation-campaigns" className="text-gray-800 hover:text-green-500">
             Donation Campaigns
           </NavLink>
         </div>
@@ -125,28 +131,19 @@ const Navbar = () => {
               </svg>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 bg-white shadow-lg">
+          <DropdownMenuContent className="w-56 md:hidden bg-white shadow-lg">
             <DropdownMenuItem>
-              <NavLink
-                to="/"
-                className="w-full text-left text-gray-800 hover:bg-green-100"
-              >
+              <NavLink to="/" className="w-full text-left text-gray-800 hover:bg-green-100">
                 Home
               </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <NavLink
-                to="/pet-listing"
-                className="w-full text-left text-gray-800 hover:bg-green-100"
-              >
+              <NavLink to="/pet-listing" className="w-full text-left text-gray-800 hover:bg-green-100">
                 Pet Listing
               </NavLink>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <NavLink
-                to="/donation-campaigns"
-                className="w-full text-left text-gray-800 hover:bg-green-100"
-              >
+              <NavLink to="/donation-campaigns" className="w-full text-left text-gray-800 hover:bg-green-100">
                 Donation Campaigns
               </NavLink>
             </DropdownMenuItem>

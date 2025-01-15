@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginAnimation from "../assets/lottie/login.json";
 import Lottie from "lottie-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -15,7 +15,9 @@ import Swal from "sweetalert2";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useContext(AuthContext);
-
+  const navigate = useNavigate()
+  const location  = useLocation()
+  const from = location.state?.from?.pathname || '/'
   // Form Validation Schema
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -42,6 +44,7 @@ const Login = () => {
         });
          // Reset Form
          resetForm();
+         navigate(from,{replace:true})
       })
       .catch((error) => {
         // Handle specific error cases

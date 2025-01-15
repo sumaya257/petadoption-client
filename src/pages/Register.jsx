@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import registerAnimation from "../assets/lottie/register.json";
 import Lottie from "lottie-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -13,7 +13,8 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { createUser,updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   // Validation Schema using Yup
   const validationSchema = Yup.object({
@@ -36,19 +37,22 @@ const Register = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-
+        updateUserProfile(values.name, values.image)
         // Success Alert
-        Swal.fire({
-          title: "Success!",
-          text: `Welcome, ${values.name}! Your account has been registered.`,
-          icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "#4CAF50",
-        });
-
-        // Reset Form
-        resetForm();
-      })
+        .then(()=>{
+          Swal.fire({
+            title: "Success!",
+            text: `Welcome, ${values.name}! Your account has been registered.`,
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#4CAF50",
+          });
+  
+          // Reset Form
+          resetForm();
+          navigate('/')
+        })
+        })
       .catch((error) => {
         // Handle duplicate email error or other auth errors
         if (error.code === "auth/email-already-in-use") {

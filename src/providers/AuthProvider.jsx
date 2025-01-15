@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from '../firebase/firebase.config';
 
 export const AuthContext = createContext(null)
@@ -19,6 +19,26 @@ const AuthProvider = ({children}) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth,email,password)
     }
+
+    const updateUserProfile = async (name, image) => {
+        try {
+            // Ensure the user is authenticated
+            if (auth.currentUser) {
+                // Update the user's profile with the new name and photo
+                await updateProfile(auth.currentUser, {
+                    displayName: name,
+                    photoURL: image,
+                });
+    
+                // Update the local user state with the updated information
+                setUser({ ...auth.currentUser, displayName: name, photoURL: image });
+            }
+        } catch (error) {
+            console.error('Failed to update user profile:', error.message);
+        }
+    };
+    
+
     const logOut = () =>{
         setLoading(loading)
         return signOut(auth).finally(() => {
@@ -42,7 +62,8 @@ const AuthProvider = ({children}) => {
             loading,
             createUser,
             signIn,
-            logOut
+            logOut,
+            updateUserProfile
     }
     return (
         <div>
