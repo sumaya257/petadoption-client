@@ -11,10 +11,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn } = useContext(AuthContext);
+  const { signIn,googleSignIn } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic()
   const navigate = useNavigate()
   const location  = useLocation()
   const from = location.state?.from?.pathname || '/'
@@ -73,6 +75,23 @@ const Login = () => {
         console.error("Login Error:", error);
       });
   };
+
+  const handleGoogleSignIn = () =>{
+    googleSignIn()
+    .then(result=>{
+      console.log(result.user)
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName
+      }
+      axiosPublic.post('/users',userInfo)
+      .then(res=>{
+        console.log(res.data)
+        navigate(from,{replace:true})
+      })
+    })
+
+  }
 
   return (
     <div className="container mx-auto px-4 py-6 rounded-2xl flex items-center justify-center bg-gradient-to-r from-green-100 to-green-500">
@@ -157,7 +176,7 @@ const Login = () => {
 
           {/* Social Login */}
           <div className="lg:flex lg:space-x-4 lg:space-y-0 space-y-4 mt-4">
-            <Button
+            <Button onClick = {handleGoogleSignIn}
               variant="outline"
               className="flex-1 flex items-center justify-center space-x-2 border-gray-300 hover:bg-gray-100"
             >

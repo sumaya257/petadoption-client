@@ -10,11 +10,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { createUser,updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate()
+  const axiosPublic = useAxiosPublic()
 
   // Validation Schema using Yup
   const validationSchema = Yup.object({
@@ -32,25 +34,37 @@ const Register = () => {
 
   // Submit Handler with SweetAlert2
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
+    
     createUser(values.email, values.password)
       .then((result) => {
         const loggedUser = result.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         updateUserProfile(values.name, values.image)
         // Success Alert
         .then(()=>{
-          Swal.fire({
-            title: "Success!",
-            text: `Welcome, ${values.name}! Your account has been registered.`,
-            icon: "success",
-            confirmButtonText: "OK",
-            confirmButtonColor: "#4CAF50",
-          });
-  
-          // Reset Form
-          resetForm();
-          navigate('/')
+          const userInfo = {
+            name : values.name,
+            email: values.email,
+            
+          }
+          //create user entry in database
+           axiosPublic.post('/users',userInfo)
+           .then(res=>{
+            if(res.data.insertedId){
+              Swal.fire({
+                title: "Success!",
+                text: `Welcome, ${values.name}! Your account has been registered.`,
+                icon: "success",
+                confirmButtonText: "OK",
+                confirmButtonColor: "#4CAF50",
+              });
+      
+              // Reset Form
+              resetForm();
+              navigate('/')
+            }
+           })
+          
         })
         })
       .catch((error) => {
