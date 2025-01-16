@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import axios from 'axios';
 import Select from 'react-select';
 import { useEditor, EditorContent } from '@tiptap/react';
-import { StarterKit } from '@tiptap/starter-kit';
+import { StarterKit } from '@tiptap/starter-kit'; // No need to import individual extensions
+import { AuthContext } from '../../providers/AuthProvider';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const AddPet = () => {
+  const { user } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
   const [categories] = useState([
     { value: 'dog', label: 'Dog' },
     { value: 'cat', label: 'Cat' },
@@ -18,7 +22,7 @@ const AddPet = () => {
 
   // Tiptap editor setup
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit], // No need to add individual extensions
     content: '',
   });
 
@@ -71,15 +75,21 @@ const AddPet = () => {
             petImage: imageUrl,
             addedDate: new Date().toISOString(),
             adopted: false,
+            email: user.email,
           };
-          console.log(petData)
 
-        //   try {
-        //     const response = await axios.post('/api/pets', petData);
-        //     console.log('Pet added successfully', response.data);
-        //   } catch (error) {
-        //     console.error('Error adding pet', error);
-        //   }
+          try {
+            const response = await axiosPrivate.post('/pets', petData);
+
+            // Check if the backend response has `success: true`
+            if (response.data.insertedId) {
+              console.log('Pet added successfully', response.data);
+            } else {
+              console.log('Error in response:', response.data.message || 'Unknown error');
+            }
+          } catch (error) {
+            console.error('Error adding pet:', error);
+          }
         }}
       >
         {({ setFieldValue }) => (
@@ -154,7 +164,6 @@ const AddPet = () => {
                 editor={editor}
                 className="border border-gray-300 p-4 rounded-lg min-h-[200px]"
                 onBlur={() => {
-                  // Update Formik when the user leaves the editor
                   setFieldValue('longDescription', editor.getHTML());
                 }}
               />
