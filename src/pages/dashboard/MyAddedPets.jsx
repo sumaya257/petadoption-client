@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaTrashAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Added icons
 
 // Fetch function using Axios for data
 const fetchPets = async (page, pageSize) => {
@@ -20,11 +20,11 @@ const MyAddedPets = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();  // To manage cache and refetch queries
 
-  // Query to fetch pets data with updated object-based API
+  // Query to fetch pets data
   const { data: pets, isLoading, refetch } = useQuery({
-    queryKey: ['pets', pageIndex, pageSize],  // This is the query key
-    queryFn: () => fetchPets(pageIndex, pageSize),  // This is the function to fetch data
-    keepPreviousData: true,  // Keep the previous data while new data is loading
+    queryKey: ['pets', pageIndex, pageSize],
+    queryFn: () => fetchPets(pageIndex, pageSize),
+    keepPreviousData: true, // Keep the previous data while new data is loading
   });
 
   // Handle deleting pet
@@ -36,13 +36,8 @@ const MyAddedPets = () => {
   const confirmDeletePet = async () => {
     if (selectedPet) {
       try {
-        // Delete the pet directly using Axios
         await useAxiosPrivate().delete(`/pets/${selectedPet._id}`);
-
-        // After successful deletion, refetch the pet data
         refetch();  // Refetch the data to reflect the deletion
-
-        // Close the modal after deletion
         setIsModalOpen(false);
       } catch (error) {
         console.error('Error deleting pet:', error);
@@ -50,14 +45,25 @@ const MyAddedPets = () => {
     }
   };
 
+  // Handle adoption toggle
+  const handleAdoptToggle = async (pet) => {
+    try {
+      const updatedPet = { ...pet, adopted: !pet.adopted }; // Toggle adoption status
+      await useAxiosPrivate().patch(`/pets/${pet._id}`, updatedPet); // Update the pet in the database
+      refetch();  // Refetch to get the latest pet data
+    } catch (error) {
+      console.error('Error toggling adoption:', error);
+    }
+  };
+
   // Handle pagination (next and previous)
   const handlePageChange = (newPageIndex) => {
-    setPageIndex(newPageIndex);  // Update the page index
+    setPageIndex(newPageIndex);
   };
 
   // Handle page size change
   const handlePageSizeChange = (e) => {
-    setPageSize(Number(e.target.value));  // Update the page size
+    setPageSize(Number(e.target.value));
   };
 
   // Handle sorting columns
@@ -88,30 +94,11 @@ const MyAddedPets = () => {
         <table className="min-w-full table-auto border-collapse border border-gray-300">
           <thead className="bg-gray-100">
             <tr>
-              <th
-                className="cursor-pointer p-2 border-b border-gray-300 text-left"
-                onClick={() => handleSort('serial')}
-              >
-                # {/* Serial Number */}
-              </th>
-              <th
-                className="cursor-pointer p-2 border-b border-gray-300 text-left"
-                onClick={() => handleSort('name')}
-              >
-                Pet Name
-              </th>
-              <th
-                className="cursor-pointer p-2 border-b border-gray-300 text-left"
-                onClick={() => handleSort('category')}
-              >
-                Category
-              </th>
-              <th
-                className="cursor-pointer p-2 border-b border-gray-300 text-left"
-                onClick={() => handleSort('location')}
-              >
-                Location
-              </th>
+              <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('serial')}>#</th>
+              <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('name')}>Pet Name</th>
+              <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('category')}>Category</th>
+              <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('location')}>Location</th>
+              <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('adopted')}>Status</th>
               <th className="p-2 border-b border-gray-300 text-left">Actions</th>
             </tr>
           </thead>
@@ -130,17 +117,29 @@ const MyAddedPets = () => {
                 <td className="p-2 border-b border-gray-300">{pet.category}</td>
                 <td className="p-2 border-b border-gray-300">{pet.location}</td>
                 <td className="p-2 border-b border-gray-300">
+                  {pet.adopted ? (
+                    <span className="text-green-500">Adopted</span>
+                  ) : (
+                    <span className="text-red-500">Not Adopted</span>
+                  )}
+                </td>
+                <td className="p-2 border-b border-gray-300">
                   <Link to={`/dashboard/update-pet/${pet._id}`}>
-                  <button className="text-blue-600 hover:text-blue-800 mr-2"
-                  >
-                    <FaEdit />
-                  </button>
+                    <button className="text-blue-600 hover:text-blue-800 mr-2">
+                      <FaEdit />
+                    </button>
                   </Link>
                   <button
                     onClick={() => handleDeletePet(pet)}
-                    className="text-red-600 hover:text-red-800"
+                    className="text-red-600 hover:text-red-800 mr-2"
                   >
                     <FaTrashAlt />
+                  </button>
+                  <button
+                    onClick={() => handleAdoptToggle(pet)}
+                    className={`text-xl ${pet.adopted ? 'text-green-500' : 'text-red-500'}`}
+                  >
+                    {pet.adopted ? <FaCheckCircle /> : <FaTimesCircle />}
                   </button>
                 </td>
               </tr>
@@ -181,17 +180,23 @@ const MyAddedPets = () => {
       )}
 
       {/* Modal for Delete Confirmation */}
-      <Modal 
-        isOpen={isModalOpen} 
-        onRequestClose={() => setIsModalOpen(false)} 
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
         className="w-96 p-6 bg-white rounded shadow-md mx-auto my-auto fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
         <h3 className="text-lg font-semibold mb-4">Are you sure you want to delete this pet?</h3>
-        <div className="flex justify-end space-x-2">
-          <button onClick={confirmDeletePet} className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800">
+        <div className="flex justify-between">
+          <button
+            onClick={confirmDeletePet}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          >
             Yes, Delete
           </button>
-          <button onClick={() => setIsModalOpen(false)} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+          >
             Cancel
           </button>
         </div>
