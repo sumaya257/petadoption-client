@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -130,12 +130,12 @@ const MyAddedPets = () => {
                 <td className="p-2 border-b border-gray-300">{pet.category}</td>
                 <td className="p-2 border-b border-gray-300">{pet.location}</td>
                 <td className="p-2 border-b border-gray-300">
-                  <button
-                    onClick={() => navigate(`/update-pet/${pet._id}`)}
-                    className="text-blue-600 hover:text-blue-800 mr-2"
+                  <Link to={`/dashboard/update-pet/${pet._id}`}>
+                  <button className="text-blue-600 hover:text-blue-800 mr-2"
                   >
                     <FaEdit />
                   </button>
+                  </Link>
                   <button
                     onClick={() => handleDeletePet(pet)}
                     className="text-red-600 hover:text-red-800"
