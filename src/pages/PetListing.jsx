@@ -66,15 +66,15 @@ const PetListingPage = () => {
               <img
                 src={pet.petImage || '/default-pet.jpg'}
                 alt={pet.name}
-                className="w-full h-40 object-cover mb-4 rounded"
+                className="w-full object-cover mb-4 rounded"
               />
               <h2 className="text-xl font-semibold">{pet.name}</h2>
               <p className="text-gray-600">Age: {pet.age}</p>
               <p className="text-gray-600">Location: {pet.location}</p>
               <div className="mt-4">
                 <Link
-                  to={`/pets/${pet._id}`} // Link to view details
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  to={`/pet-listing/${pet._id}`} // Link to view details
+                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 >
                   View Details
                 </Link>
