@@ -31,8 +31,8 @@ const AddPet = () => {
     if (!file) return;
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'petAdoption'); // Replace with your actual preset
-    formData.append('cloud_name', 'dxk6blzfu'); // Replace with your actual cloud name
+    formData.append('upload_preset', 'petAdoption'); //preset
+    formData.append('cloud_name', 'dxk6blzfu'); //  actual cloud name
 
     try {
       const res = await fetch('https://api.cloudinary.com/v1_1/dxk6blzfu/image/upload', {
