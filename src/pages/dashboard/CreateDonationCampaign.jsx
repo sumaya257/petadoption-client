@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const CreateDonationCampaign = () => {
   const [petImage, setPetImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const axiosPrivate = useAxiosPrivate()
 
   // Formik setup
   const formik = useFormik({
@@ -15,21 +17,30 @@ const CreateDonationCampaign = () => {
       shortDesc: '',
       longDesc: '',
     },
-    onSubmit: (values) => {
-      const campaignData = {
-        petImage,
-        name: values.name,
-        maxDonation: values.maxDonation,
-        lastDate: values.lastDate,
-        shortDesc: values.shortDesc,
-        longDesc: values.longDesc,
-        createdAt: new Date().toISOString(),
-      };
-
-      // Handle submission (e.g., using TanStack Query or Axios)
-      console.log('Submitting campaign data:', campaignData);
-    },
-  });
+    onSubmit: async (values) => {
+        const campaignData = {
+          petImage,
+          name: values.name,
+          maxDonation: values.maxDonation,
+          lastDate: values.lastDate,
+          shortDesc: values.shortDesc,
+          longDesc: values.longDesc,
+          createdAt: new Date().toISOString(),
+        };
+  
+        try {
+          const response = await axiosPrivate.post("/donations", campaignData);
+          if (response.data.insertedId) {
+            console.log("Donation campaign added successfully:", response.data);
+          } else {
+            console.error("Error in response:", response.data.message || "Unknown error");
+          }
+        } catch (error) {
+          console.error("Error adding donation campaign:", error);
+        }
+      },
+    });
+  
 
   // Handle image upload to Cloudinary
   const handleImageUpload = async (event) => {

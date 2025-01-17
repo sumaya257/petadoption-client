@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import  {React, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { FaEdit, FaTrashAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Added icons
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
 
-// Fetch function using Axios for data
-const fetchPets = async (page, pageSize) => {
-  const response = await useAxiosPrivate().get(`/pets/my-pets?page=${page}&limit=${pageSize}`);
-  return response.data.pets;
-};
+
 
 const MyAddedPets = () => {
+    const {user} = useContext(AuthContext)
+    console.log(user.email)
+    const fetchPets = async (page, pageSize) => {
+    const response = await useAxiosPrivate().get(`/pets/my-pets?email=${user.email}&page=${page}&limit=${pageSize}`
+)
+  return response.data.pets;
+};
   const [pageIndex, setPageIndex] = useState(0); // Current page index
   const [pageSize, setPageSize] = useState(10);  // Number of items per page
   const [isModalOpen, setIsModalOpen] = useState(false);  // Modal state
   const [selectedPet, setSelectedPet] = useState(null);  // Pet selected for delete
   const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' }); // Sorting state
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();  // To manage cache and refetch queries
+ 
 
   // Query to fetch pets data
   const { data: pets, isLoading, refetch } = useQuery({
-    queryKey: ['pets', pageIndex, pageSize],
+    queryKey: ['pets',user?.email, pageIndex, pageSize],
     queryFn: () => fetchPets(pageIndex, pageSize),
     keepPreviousData: true, // Keep the previous data while new data is loading
   });
