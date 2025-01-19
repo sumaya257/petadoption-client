@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useLoaderData } from 'react-router';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import Swal from 'sweetalert2';
 
 // UpdatePet component
 const UpdatePet = () => {
@@ -22,6 +23,13 @@ const UpdatePet = () => {
       },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pet', loaderData?._id] });
+      // SweetAlert after successful update
+            Swal.fire({
+              icon: 'success',
+              title: 'Pet Form Updated!',
+              text: 'The Pet Form has been successfully updated.',
+              confirmButtonText: 'OK',
+            });
     },
   });
 

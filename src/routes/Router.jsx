@@ -16,6 +16,7 @@ import MyDonations from "../pages/dashboard/MyDonations";
 import UpdatePet from "../pages/dashboard/UpdatePet";
 import PetDetails from "../pages/PetDetails";
 import UpdateDonation from "../pages/dashboard/UpdateDonation";
+import DonationDetails from "../pages/DonationDetails";
 
 
 
@@ -38,6 +39,11 @@ export const router = createBrowserRouter([
               path:'/pet-listing/:id',
               element:<PetDetails></PetDetails>,
               loader: ({params})=> fetch(`http://localhost:5000/pet-listing/${params.id}`)
+            },
+            {
+              path:'/donation-details/:id',
+              element:<DonationDetails></DonationDetails>,
+              loader: ({params})=> fetch(`http://localhost:5000/donation-details/${params.id}`)
             },
             {
                 path:'/donation-campaigns',

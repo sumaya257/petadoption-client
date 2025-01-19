@@ -3,11 +3,13 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useLoaderData } from 'react-router';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
 
 const UpdateDonation = () => {
   const loader = useLoaderData();
   const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient(); // Add this line to use the query client for invalidation
 
   // State for handling the pet image
   const [petImage, setPetImage] = useState(loader?.petImage || '');
@@ -20,6 +22,23 @@ const UpdateDonation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['donation', loader?._id] });
+
+      // SweetAlert after successful update
+      Swal.fire({
+        icon: 'success',
+        title: 'Donation Campaign Updated!',
+        text: 'The donation campaign has been successfully updated.',
+        confirmButtonText: 'OK',
+      });
+    },
+    onError: (error) => {
+      // Handle error, maybe show a SweetAlert for failure
+      Swal.fire({
+        icon: 'error',
+        title: 'Update Failed',
+        text: error.message || 'Something went wrong. Please try again.',
+        confirmButtonText: 'OK',
+      });
     },
   });
 

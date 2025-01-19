@@ -22,6 +22,7 @@ const MyDonationCampaigns = () => {
             const response = await axiosPrivate.get(
                 `/donations/my-campaigns?email=${user.email}`
             );
+            console.log(response.data)
             return response.data;
         },
     });

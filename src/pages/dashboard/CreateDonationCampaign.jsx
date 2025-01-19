@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const CreateDonationCampaign = () => {
   const [petImage, setPetImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate()
+  const {user} = useContext(AuthContext)
 
   // Formik setup
   const formik = useFormik({
@@ -26,6 +28,7 @@ const CreateDonationCampaign = () => {
           shortDesc: values.shortDesc,
           longDesc: values.longDesc,
           createdAt: new Date().toISOString(),
+          email:user.email
         };
   
         try {
