@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useParams } from 'react-router';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -10,10 +10,11 @@ const stripePromise = loadStripe(import.meta.env.VITE_payment);
 const DonationDetails = () => {
   const axiosPublic = useAxiosPrivate();
   const donation = useLoaderData();
+  console.log(donation)
   const [showModal, setShowModal] = useState(false);
   const [recommendedDonations, setRecommendedDonations] = useState([]);
   const [donationAmount, setDonationAmount] = useState(''); // NEW: Donation amount state
-
+ 
   // Fetch recommended donations
   useEffect(() => {
     const fetchRecommendedDonations = async () => {
@@ -23,7 +24,9 @@ const DonationDetails = () => {
           (item) => item._id !== donation._id
         );
         setRecommendedDonations(filteredDonations);
-      } catch (error) {
+        console.log(recommendedDonations)
+      }
+      catch (error) {
         console.error('Error fetching recommended donations:', error);
       }
     };
@@ -52,11 +55,27 @@ const DonationDetails = () => {
             Deadline: {new Date(donation.lastDate).toLocaleDateString()}
           </p>
           <button
-            className="mt-4 bg-green-500 text-white py-2 px-4 rounded"
-            onClick={() => setShowModal(true)}
-          >
-            Donate Now
-          </button>
+  className={`mt-4 py-2 px-4 rounded ${
+    donation.paused ? "bg-gray-400 cursor-not-allowed" : "bg-green-500"
+  } text-white`}
+  onClick={() => {
+    if (donation.paused) {
+      // Show alert if the campaign is paused
+      Swal.fire({
+        icon: "warning",
+        title: "This donation campaign is paused",
+        text: "You cannot donate to this campaign right now.",
+      });
+    } else {
+      // Open the modal if the campaign is active
+      setShowModal(true);
+    }
+  }}
+  disabled={donation.paused} // Disable the button if the campaign is paused
+>
+  Donate Now
+</button>
+
         </div>
       </div>
 
@@ -113,7 +132,9 @@ const DonationDetails = () => {
             </div> 
 
             <Elements stripe={stripePromise}>
-              <CheckoutForm donationAmount={donationAmount} /> {/* Pass amount */}
+              <CheckoutForm donationAmount={donationAmount} campaignId={donation.
+campaignId} donationName={donation.name} petImage ={donation.
+  petImage} petName ={donation.name}  /> {/* Pass amount */}
             </Elements>
             <div className="mt-4 flex justify-end">
               <button

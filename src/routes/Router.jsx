@@ -83,7 +83,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'my-donation-campaigns',
-            element: <MyDonationCampaigns></MyDonationCampaigns>
+            element: <MyDonationCampaigns></MyDonationCampaigns>,
           },
           {
             path: 'my-donations',

@@ -5,7 +5,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import useDonation from '../../hooks/useDonation';
 import Swal from 'sweetalert2';
 
-const CheckoutForm = ({ donationAmount }) => {
+const CheckoutForm = ({ donationAmount, campaignId,petImage,petName }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [clientSecret, setClientSecret] = useState('');
@@ -14,6 +14,7 @@ const CheckoutForm = ({ donationAmount }) => {
     const axiosPrivate = useAxiosPrivate();
     const { user } = useContext(AuthContext);
     const [donations,refetch]= useDonation()
+    
 
     // Fetch the clientSecret as soon as donationAmount changes
     useEffect(() => {
@@ -85,11 +86,14 @@ const CheckoutForm = ({ donationAmount }) => {
         }
      // now save the payment in the database
         const payment = {
-            email: user.email,
-            name: user.displayName,
-            price: donationAmount,
+            userEmail: user.email,
+            userName: user.displayName,
+            donationAmount: donationAmount,
             transactionId:transactionId,
             date: new Date(), // utc date convert. use moment js to 
+            campaignId: campaignId,
+            petImage: petImage,
+            petName: petName,
         }
 
         const res = await axiosPrivate.post('/payments', payment);

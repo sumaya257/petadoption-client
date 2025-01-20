@@ -20,6 +20,9 @@ const CreateDonationCampaign = () => {
       longDesc: '',
     },
     onSubmit: async (values) => {
+      // Generate a unique ID based on timestamp and random number
+      const campaignId = `campaign-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
         const campaignData = {
           petImage,
           name: values.name,
@@ -28,7 +31,8 @@ const CreateDonationCampaign = () => {
           shortDesc: values.shortDesc,
           longDesc: values.longDesc,
           createdAt: new Date().toISOString(),
-          email:user.email
+          email:user.email,
+          campaignId: campaignId,
         };
   
         try {

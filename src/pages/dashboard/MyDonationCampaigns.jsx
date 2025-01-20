@@ -8,6 +8,7 @@ import { Link } from "react-router";
 
 const MyDonationCampaigns = () => {
     const [donators, setDonators] = useState([]);
+    const [totalDonation, setTotalDonation] = useState();
     const [selectedCampaign, setSelectedCampaign] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const axiosPrivate = useAxiosPrivate();
@@ -42,10 +43,13 @@ const MyDonationCampaigns = () => {
     const fetchDonators = async (campaignId) => {
         try {
             const response = await axiosPrivate.get(`/donations/${campaignId}/donators`);
-            setDonators(response.data);
+            const totalDonation = response.data.totalDonation
+            setDonators(response.data.donators|| []);
+            setTotalDonation(response.data.totalDonation || 0);
             setSelectedCampaign(campaignId);
             setModalOpen(true);
-        } catch (error) {
+            console.log (donators)
+        }catch (error) {
             console.error("Error fetching donators:", error);
             Swal.fire({
                 icon: "error",
@@ -61,9 +65,9 @@ const MyDonationCampaigns = () => {
         <div className="container mx-auto p-4">
             <h2 className="text-2xl font-bold mb-4">My Donation Campaigns</h2>
 
-            <table className="table-auto w-full border border-gray-300">
+            <table className="table-auto w-full  border border-gray-300">
                 <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-gray-100 text-left">
                         <th className="px-4 py-2">Campaign Name</th>
                         <th className="px-4 py-2">Max Donation</th>
                         <th className="px-4 py-2">Donation Progress</th>
@@ -81,14 +85,14 @@ const MyDonationCampaigns = () => {
                                         className="h-4 bg-green-500 rounded"
                                         style={{
                                             width: `${Math.min(
-                                                (campaign.currentDonation / campaign.maxDonation) * 100,
+                                                (campaign.totalDonation / campaign.maxDonation) * 100,
                                                 100
                                             )}%`,
                                         }}
                                     ></div>
                                 </div>
                                 <span className="text-sm">
-                                    ${campaign.currentDonation} / ${campaign.maxDonation}
+                                    ${campaign.totalDonation} / ${campaign.maxDonation}
                                 </span>
                             </td>
                             <td className="px-4 py-2">
@@ -110,7 +114,7 @@ const MyDonationCampaigns = () => {
 
                                 {/* View Donators button */}
                                 <button
-                                    onClick={() => fetchDonators(campaign._id)}
+                                    onClick={() => fetchDonators(campaign.campaignId)}
                                     className="px-3 py-1 bg-green-500 text-white rounded"
                                 >
                                     View Donators
@@ -125,7 +129,7 @@ const MyDonationCampaigns = () => {
             {modalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded-lg w-1/3">
-                        <h3 className="text-lg font-bold mb-4">Donators for Campaign: {selectedCampaign}</h3>
+                        <h3 className="text-lg font-bold mb-4">Donators for the Campaign, Total: ${totalDonation}</h3>
                         <ul className="list-disc pl-5">
                             {donators.length > 0 ? (
                                 donators.map((donator, index) => (
