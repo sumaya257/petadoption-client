@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 const PetDetails = () => {
     const axiosPublic = useAxiosPublic()
   const {user,loading} = useContext(AuthContext)
+
   const pet = useLoaderData(); // Access pet details from loader
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
