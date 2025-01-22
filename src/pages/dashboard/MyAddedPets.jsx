@@ -11,9 +11,10 @@ import { AuthContext } from '../../providers/AuthProvider';
 
 const MyAddedPets = () => {
     const {user} = useContext(AuthContext)
+    const axiosPrivate = useAxiosPrivate()
     console.log(user.email)
     const fetchPets = async (page, pageSize) => {
-    const response = await useAxiosPrivate().get(`/pets/my-pets?email=${user.email}&page=${page}&limit=${pageSize}`
+    const response = await axiosPrivate.get(`/pets/my-pets?email=${user.email}&page=${page}&limit=${pageSize}`
 )
   return response.data.pets;
 };
@@ -40,7 +41,7 @@ const MyAddedPets = () => {
   const confirmDeletePet = async () => {
     if (selectedPet) {
       try {
-        await useAxiosPrivate().delete(`/pets/${selectedPet._id}`);
+        await axiosPrivate.delete(`/pets/${selectedPet._id}`);
         refetch();  // Refetch the data to reflect the deletion
         setIsModalOpen(false);
       } catch (error) {
@@ -53,7 +54,7 @@ const MyAddedPets = () => {
   const handleAdoptToggle = async (pet) => {
     try {
       const updatedPet = { ...pet, adopted: !pet.adopted }; // Toggle adoption status
-      await useAxiosPrivate().patch(`/pets/${pet._id}`, updatedPet); // Update the pet in the database
+      await axiosPrivate.patch(`/pets/${pet._id}`, updatedPet); // Update the pet in the database
       refetch();  // Refetch to get the latest pet data
     } catch (error) {
       console.error('Error toggling adoption:', error);
