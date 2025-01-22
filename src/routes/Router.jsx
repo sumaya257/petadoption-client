@@ -17,6 +17,9 @@ import UpdatePet from "../pages/dashboard/UpdatePet";
 import PetDetails from "../pages/PetDetails";
 import UpdateDonation from "../pages/dashboard/UpdateDonation";
 import DonationDetails from "../pages/DonationDetails";
+import User from "../pages/dashboard/AdminOnly/User";
+import AllPets from "../pages/dashboard/AdminOnly/AllPets";
+import AllDonations from "../pages/dashboard/AdminOnly/AllDonations";
 
 
 
@@ -87,7 +90,20 @@ export const router = createBrowserRouter([
           },
           {
             path: 'my-donations',
-            element: <MyDonations></MyDonations>
+            element:<MyDonations></MyDonations>,
+          },
+          //admin only
+          {
+            path: 'all-users',
+            element: <User></User>
+          },
+          {
+            path: 'all-pets',
+            element: <AllPets></AllPets>
+          },
+          {
+            path: 'all-donations',
+            element: <AllDonations></AllDonations>
           },
           {
             path: 'update-pet/:id',
