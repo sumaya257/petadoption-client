@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -12,6 +11,8 @@ import * as Yup from "yup";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet";
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +37,6 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         // Show success alert
         Swal.fire({
           icon: "success",
@@ -79,7 +79,7 @@ const Login = () => {
   const handleGoogleSignIn = () =>{
     googleSignIn()
     .then(result=>{
-      console.log(result.user)
+      // console.log(result.user)
       const userInfo = {
         email: result.user?.email,
         name: result.user?.displayName,
@@ -88,7 +88,7 @@ const Login = () => {
       }
       axiosPublic.post('/users',userInfo)
       .then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         navigate(from,{replace:true})
       })
     })
@@ -100,6 +100,8 @@ const Login = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
         {/* Form Section */}
         <div className="bg-white p-8 rounded-lg shadow-lg">
+        <Helmet
+        ><title>Login</title></Helmet>
           <h2 className="text-3xl font-bold mb-4 text-center">Login</h2>
           <p className="text-center text-gray-600 mb-6">
             Welcome back! Please login to your account.

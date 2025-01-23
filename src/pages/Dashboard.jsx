@@ -3,6 +3,7 @@ import { Outlet, NavLink } from 'react-router-dom';
 import { FaPaw, FaListAlt, FaHeart, FaBullhorn, FaDonate,FaTrophy,FaHandsHelping } from 'react-icons/fa';
 import Navbar from '../shared/Navbar';
 import useAdmin from '../hooks/useAdmin';
+import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
@@ -18,6 +19,7 @@ const Dashboard = () => {
       <div className="flex">
         {/* Sidebar */}
         <div className="lg:w-64 md:w-36 min-h-screen bg-green-600 text-white flex flex-col">
+        <Helmet><title>Dashboard</title></Helmet>
           <div className="p-4 text-lg font-bold">Dashboard</div>
           <nav className="flex flex-col space-y-2 p-4 flex-1">
             {isAdmin ? (

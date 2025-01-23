@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import Swal from 'sweetalert2';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { AuthContext } from '../../providers/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 const AdoptionRequest = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -55,6 +56,7 @@ const AdoptionRequest = () => {
 
     return (
         <div className="p-6">
+            <Helmet><title>Adoption-Request</title></Helmet>
             <h2 className="text-xl font-bold mb-4">Adoption Requests</h2>
             {adoptionRequests.length > 0 ? (
                 <table className="table-auto w-full border-collapse border border-gray-300">

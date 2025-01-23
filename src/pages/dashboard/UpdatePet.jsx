@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useLoaderData } from 'react-router';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 // UpdatePet component
 const UpdatePet = () => {
@@ -62,6 +63,7 @@ const UpdatePet = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-blue-100 dark:text-black shadow-md rounded-lg">
+      <Helmet><title>Update-pet</title></Helmet>
       <h2 className="text-2xl font-semibold text-center text-primary dark:text-black">Update Pet</h2>
       <Formik
         enableReinitialize

@@ -4,6 +4,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import { Helmet } from "react-helmet";
 
 const MyDonationCampaigns = () => {
     const [donators, setDonators] = useState([]);
@@ -22,7 +23,7 @@ const MyDonationCampaigns = () => {
             const response = await axiosPrivate.get(
                 `/donations/my-campaigns?email=${user.email}`
             );
-            console.log(response.data)
+            // console.log(response.data)
             return response.data;
         },
     });
@@ -47,7 +48,7 @@ const MyDonationCampaigns = () => {
             setTotalDonation(response.data.totalDonation || 0);
             setSelectedCampaign(campaignId);
             setModalOpen(true);
-            console.log (donators)
+            // console.log (donators)
         }catch (error) {
             console.error("Error fetching donators:", error);
             Swal.fire({
@@ -62,6 +63,7 @@ const MyDonationCampaigns = () => {
 
     return (
         <div className="container mx-auto p-4">
+            <Helmet><title>My-Campaigns</title></Helmet>
             <h2 className="text-2xl font-bold mb-4">My Donation Campaigns</h2>
 
             <table className="table-auto w-full  border border-gray-300">

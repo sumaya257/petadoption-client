@@ -6,13 +6,14 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { FaEdit, FaTrashAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Added icons
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 
 
 const MyAddedPets = () => {
     const {user} = useContext(AuthContext)
     const axiosPrivate = useAxiosPrivate()
-    console.log(user.email)
+    // console.log(user.email)
     const fetchPets = async (page, pageSize) => {
     const response = await axiosPrivate.get(`/pets/my-pets?email=${user.email}&page=${page}&limit=${pageSize}`
 )
@@ -23,7 +24,7 @@ const MyAddedPets = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);  // Modal state
   const [selectedPet, setSelectedPet] = useState(null);  // Pet selected for delete
   const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' }); // Sorting state
- 
+ console.log(pageIndex,pageSize)
 
   // Query to fetch pets data
   const { data: pets, isLoading, refetch } = useQuery({
@@ -89,6 +90,7 @@ const MyAddedPets = () => {
 
   return (
     <div className="container mx-auto mt-5">
+      <Helmet><title>MyAdded-Pet</title></Helmet>
       <h2 className="text-2xl font-bold mb-4">My Added Pets</h2>
 
       {/* Loading Indicator */}
@@ -161,7 +163,7 @@ const MyAddedPets = () => {
           value={pageSize}
           onChange={handlePageSizeChange}
           className="p-2 border rounded"
-        >
+        > <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={20}>20</option>
         </select>

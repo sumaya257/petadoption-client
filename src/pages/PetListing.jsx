@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAddedPets from '../hooks/useAddedPets';
-
+import { Helmet } from 'react-helmet';
+import Skeleton from 'react-loading-skeleton';
 
 const PetListingPage = () => {
   const [search, setSearch] = useState('');
@@ -22,15 +23,28 @@ const PetListingPage = () => {
     setCategory(e.target.value);
   };
 
-  if (isLoading) return <div>Loading pets...</div>;
+  if (isLoading) {
+          return (
+            <div className="flex justify-center items-center h-screen">
+              <Skeleton height={24} width={300} count={3} className="mb-4 rounded-md" />
+            </div>
+          );
+        }
+        
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+        <title>Pet-Listing</title>
+      </Helmet>
       <h1 className="text-3xl font-semibold mb-4">Available Pets for Adoption</h1>
 
       {/* Search and Category Filters */}
-      <div className="mb-6 flex gap-4 items-center">
+      <form
+        onSubmit={(e) => e.preventDefault()} // Prevent form submission
+        className="mb-6 flex gap-4 items-center"
+      >
         {/* Search Input */}
         <div>
           <input
@@ -56,7 +70,7 @@ const PetListingPage = () => {
             <option value="fish">Fish</option>
           </select>
         </div>
-      </div>
+      </form>
 
       {/* Pet Cards Display */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

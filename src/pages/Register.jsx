@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { AuthContext } from "../providers/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -95,6 +96,7 @@ const Register = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
         {/* Form Section */}
         <div className="bg-white p-8 rounded-lg shadow-lg">
+        <Helmet><title>Register</title></Helmet>
           <h2 className="text-3xl font-bold mb-4 text-center">Register</h2>
           <p className="text-center text-gray-600 mb-6">
             Create your account to get started!

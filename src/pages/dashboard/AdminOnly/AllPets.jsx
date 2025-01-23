@@ -5,6 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { FaEdit, FaTrash, FaCheck, FaTimes } from "react-icons/fa";  // Import FontAwesome icons
 import { Link } from "react-router";
+import { Helmet } from "react-helmet";
 
 const AllPets = () => {
   const queryClient = useQueryClient();
@@ -86,6 +87,7 @@ const AllPets = () => {
 
   return (
     <div className="p-5">
+      <Helmet><title>Add-Pets</title></Helmet>
       <h2 className="text-2xl font-bold mb-4">All Pets</h2>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-300">

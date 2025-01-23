@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { AuthContext } from "../providers/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const PetDetails = () => {
   const axiosPublic = useAxiosPublic()
@@ -60,6 +61,7 @@ const PetDetails = () => {
 
   return (
     <div className="md:w-8/12 container  mx-auto p-4">
+      <Helmet><title>pet-details</title></Helmet>
       <div className="bg-white p-6 rounded shadow-md lg:flex gap-10">
         {/* Pet Details */}
         <div className="flex-1">

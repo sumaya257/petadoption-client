@@ -4,6 +4,7 @@ import axios from 'axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const CreateDonationCampaign = () => {
   const [petImage, setPetImage] = useState(null);
@@ -48,7 +49,7 @@ const CreateDonationCampaign = () => {
               timer: 3000, // Optional: Auto-close after 3 seconds
               timerProgressBar: true,
             });
-            console.log("Donation campaign added successfully:", response.data);
+            // console.log("Donation campaign added successfully:", response.data);
           } else {
             console.error("Error in response:", response.data.message || "Unknown error");
           }
@@ -70,7 +71,7 @@ const CreateDonationCampaign = () => {
       setLoading(true);
       try {
         const response = await axios.post('https://api.cloudinary.com/v1_1/dxk6blzfu/image/upload',formData);
-        console.log(response.data)
+        // console.log(response.data)
         setPetImage(response.data.secure_url);
         setLoading(false);
       } catch (error) {
@@ -82,6 +83,7 @@ const CreateDonationCampaign = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-green-100 dark:text-black shadow-md rounded-lg">
+      <Helmet><title>create-Donation</title></Helmet>
       <div className="w-full max-w-lg  p-6 rounded-lg shadow-lg dark:text-black">
         <h2 className="text-3xl font-bold text-center mb-6">Create Donation Campaign</h2>
         

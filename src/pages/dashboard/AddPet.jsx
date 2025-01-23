@@ -7,6 +7,7 @@ import { StarterKit } from '@tiptap/starter-kit'; // No need to import individua
 import { AuthContext } from '../../providers/AuthProvider';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const AddPet = () => {
   const { user } = useContext(AuthContext);
@@ -49,6 +50,7 @@ const AddPet = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-green-100 dark:text-black shadow-md rounded-lg">
+      <Helmet><title>Add-Pet</title></Helmet>
       <h2 className="text-2xl font-semibold text-center text-primary dark:text-black">Add Your Pet</h2>
       <Formik
         initialValues={{
@@ -92,9 +94,9 @@ const AddPet = () => {
                             timer: 3000, // Optional: Auto-close after 3 seconds
                             timerProgressBar: true,
                           });
-              console.log('Pet added successfully', response.data);
+              // console.log('Pet added successfully', response.data);
             } else {
-              console.log('Error in response:', response.data.message || 'Unknown error');
+              // console.log('Error in response:', response.data.message || 'Unknown error');
             }
           } catch (error) {
             console.error('Error adding pet:', error);

@@ -52,7 +52,7 @@ const CheckoutForm = ({ donationAmount, campaignId,petImage,petName }) => {
             });
 
             if (error) {
-                console.log('[error]', error);
+                // console.log('[error]', error);
                 setError(error.message);
                 return;
             } else {
@@ -74,7 +74,7 @@ const CheckoutForm = ({ donationAmount, campaignId,petImage,petName }) => {
             );
 
             if (confirmError) {
-                console.log('Payment confirmation error', confirmError);
+                // console.log('Payment confirmation error', confirmError);
                 setError(confirmError.message || 'Payment failed');
             } else {
                 if (paymentIntent.status === 'succeeded') {
@@ -97,7 +97,7 @@ const CheckoutForm = ({ donationAmount, campaignId,petImage,petName }) => {
         }
 
         const res = await axiosPrivate.post('/payments', payment);
-        console.log('payment saved', res.data);
+        // console.log('payment saved', res.data);
         refetch();
         if (res.data?.insertedId) {
             Swal.fire({

@@ -5,6 +5,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useLoaderData } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const UpdateDonation = () => {
   const loader = useLoaderData();
@@ -88,6 +89,7 @@ const UpdateDonation = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-green-100 dark:text-black shadow-md rounded-lg">
+      <Helmet><title>update-donations</title></Helmet>
       <h2 className="text-3xl font-bold text-center mb-6 dark:text-black">Update Donation Campaign</h2>
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         {/* Pet Picture Upload */}

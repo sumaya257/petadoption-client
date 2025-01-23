@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
 
 const DonationCampaigns = () => {
   const [donations, setDonations] = useState([]);
@@ -27,6 +28,7 @@ const DonationCampaigns = () => {
 
   return (
     <div className="container mx-auto p-6">
+      <Helmet><title>Donation-campaigns</title></Helmet>
       <h2 className="text-3xl font-bold text-center mb-6">Donation Campaigns</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {donations.map((donation) => (

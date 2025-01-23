@@ -23,9 +23,6 @@ import AllDonations from "../pages/dashboard/AdminOnly/AllDonations";
 import ErrorPage from "../pages/ErrorPage";
 
 
-
-
-
 export const router = createBrowserRouter([
     {
         path:'/',
@@ -43,12 +40,12 @@ export const router = createBrowserRouter([
             {
               path:'/pet-listing/:id',
               element:<PetDetails></PetDetails>,
-              loader: ({params})=> fetch(`http://localhost:5000/pet-listing/${params.id}`)
+              loader: ({params})=> fetch(`https://petadoption-server-roan.vercel.app/pet-listing/${params.id}`)
             },
             {
               path:'/donation-details/:id',
               element:<DonationDetails></DonationDetails>,
-              loader: ({params})=> fetch(`http://localhost:5000/donation-details/${params.id}`)
+              loader: ({params})=> fetch(`https://petadoption-server-roan.vercel.app/donation-details/${params.id}`)
             },
             {
                 path:'/donation-campaigns',
@@ -110,12 +107,12 @@ export const router = createBrowserRouter([
           {
             path: 'update-pet/:id',
             element: <UpdatePet></UpdatePet>,
-            loader: ({params})=> fetch(`http://localhost:5000/pets/${params.id}`)
+            loader: ({params})=> fetch(`https://petadoption-server-roan.vercel.app/pets/${params.id}`)
           },
           {
             path: 'update-donation/:id',
             element: <UpdateDonation></UpdateDonation>,
-            loader: ({params})=> fetch(`http://localhost:5000/donations/${params.id}`)
+            loader: ({params})=> fetch(`https://petadoption-server-roan.vercel.app/donations/${params.id}`)
           },
 
         ]

@@ -4,13 +4,13 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './payment/CheckoutForm';
+import { Helmet } from 'react-helmet';
 
 const stripePromise = loadStripe(import.meta.env.VITE_payment);
 
 const DonationDetails = () => {
   const axiosPublic = useAxiosPrivate();
   const donation = useLoaderData();
-  console.log(donation)
   const [showModal, setShowModal] = useState(false);
   const [recommendedDonations, setRecommendedDonations] = useState([]);
   const [donationAmount, setDonationAmount] = useState(''); // NEW: Donation amount state
@@ -24,7 +24,6 @@ const DonationDetails = () => {
           (item) => item._id !== donation._id
         );
         setRecommendedDonations(filteredDonations);
-        console.log(recommendedDonations)
       }
       catch (error) {
         console.error('Error fetching recommended donations:', error);
@@ -35,6 +34,7 @@ const DonationDetails = () => {
 
   return (
     <div className="md:w-8/12 container mx-auto p-4">
+      <Helmet><title>Donation-details</title></Helmet>
       {/* Donation Details Section */}
       <div className="bg-white dark:text-gray-700 p-6 rounded shadow-md lg:flex gap-10">
         <div className="flex-1">
@@ -84,7 +84,7 @@ const DonationDetails = () => {
       {/* Recommended Donations Section */}
       <div className="mb-6">
         <h3 className="text-2xl font-semibold mb-4">Recommended Donations</h3>
-        <div className="grid grid-cols-3 gap-4 dark:text-gray-700">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 dark:text-gray-700">
           {recommendedDonations.slice(0, 3).map((recommendation) => (
             <div
               key={recommendation._id}

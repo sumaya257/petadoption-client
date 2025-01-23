@@ -5,10 +5,12 @@ import CallToAction from '../components/CallToAction';
 import AboutUs from '../components/AboutUs';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     return (
         <div>
+            <Helmet><title>Home</title></Helmet>
             <Banner></Banner>
             <PetsCategory></PetsCategory>
             <CallToAction></CallToAction>

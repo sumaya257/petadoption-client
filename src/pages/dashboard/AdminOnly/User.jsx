@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import { Helmet } from 'react-helmet';
 
 
 const User = () => {
@@ -18,7 +19,7 @@ const User = () => {
     const handleMakeAdmin = user =>{
         axiosPrivate.patch(`/users/admin/${user._id}`)
         .then(res =>{
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data.modifiedCount > 0){
                 refetch();
                 Swal.fire({
@@ -33,6 +34,7 @@ const User = () => {
     }
     return (
         <div className="p-4">
+            <Helmet><title>All-user</title></Helmet>
             <h1 className="text-xl font-bold mb-4">User List ({users.length})</h1>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse border border-gray-300">

@@ -3,18 +3,19 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const MyDonations = () => {
   const axiosPrivate = useAxiosPrivate();
   const { user } = useContext(AuthContext);
-  console.log(user)
+  // console.log(user)
   // Fetch donations for the logged-in user
   const { data: donations = [], isLoading, refetch } = useQuery({
     queryKey: ["myDonations", user?.email],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/payments/my-donations?email=${user.email}` );
-        console.log(response.data)
+        // console.log(response.data)
         return response.data; // Ensure your API returns donation details
      
     },
@@ -39,6 +40,7 @@ const MyDonations = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet><title>My-Donations</title></Helmet>
       <h2 className="text-2xl font-bold mb-4">My Donations</h2>
       {donations.length === 0 ? (
         <p>No donations found.</p>
