@@ -97,9 +97,9 @@ const MyAddedPets = () => {
       {/* Table displaying pets */}
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto border-collapse border border-gray-300">
-          <thead className="bg-gray-100">
+          <thead className="bg-gray-100 dark:text-black">
             <tr>
-              <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('serial')}>#</th>
+              <th className="cursor-pointer p-2 border-b border-gray-300  text-left" onClick={() => handleSort('serial')}>#</th>
               <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('name')}>Pet Name</th>
               <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('category')}>Category</th>
               <th className="cursor-pointer p-2 border-b border-gray-300 text-left" onClick={() => handleSort('location')}>Location</th>
@@ -109,12 +109,12 @@ const MyAddedPets = () => {
           </thead>
           <tbody>
             {sortedPets?.map((pet, index) => (
-              <tr key={pet._id} className="hover:bg-gray-50">
+              <tr key={pet._id} className="hover:bg-gray-50  dark:hover:bg-black">
                 <td className="p-2 border-b border-gray-300">
                   <input
                     type="number"
                     value={index + 1 + pageIndex * pageSize} // Adjust serial number for pagination
-                    className="w-12 border border-gray-300 text-center"
+                    className="w-12 border border-gray-300 dark:bg-black text-center"
                     readOnly
                   />
                 </td>
@@ -154,30 +154,29 @@ const MyAddedPets = () => {
       </div>
 
       {/* Page Size Selector */}
-      <div className="mt-4 flex items-center">
-        <label htmlFor="pageSize" className="mr-2">Items per page:</label>
+      <div className="mt-4 flex items-center dark:text-black">
+        <label htmlFor="pageSize" className="mr-2 dark:text-white">Items per page:</label>
         <select
           id="pageSize"
           value={pageSize}
           onChange={handlePageSizeChange}
           className="p-2 border rounded"
         >
-          <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={20}>20</option>
         </select>
       </div>
 
       {/* Conditionally Render Pagination */}
-      {pets?.length > 10 && (
+      {pets?.length >pageSize && (
         <div className="mt-4">
-          <button onClick={() => handlePageChange(pageIndex - 1)} disabled={pageIndex === 0} className="p-2 mr-2 bg-gray-200 hover:bg-gray-300">
+          <button onClick={() => handlePageChange(pageIndex - 1)} disabled={pageIndex === 0} className="p-2 mr-2 bg-gray-200 hover:bg-gray-300 dark:text-white">
             Prev
           </button>
           <button
             onClick={() => handlePageChange(pageIndex + 1)}
             disabled={pets?.length < pageSize}
-            className="p-2 bg-gray-200 hover:bg-gray-300"
+            className="p-2 bg-gray-200 hover:bg-gray-300 dark:text-white"
           >
             Next
           </button>
@@ -190,7 +189,7 @@ const MyAddedPets = () => {
         onRequestClose={() => setIsModalOpen(false)}
         className="w-96 p-6 bg-white rounded shadow-md mx-auto my-auto fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
-        <h3 className="text-lg font-semibold mb-4">Are you sure you want to delete this pet?</h3>
+        <h3 className="text-lg font-semibold mb-4 dark:text-black">Are you sure you want to delete this pet?</h3>
         <div className="flex justify-between">
           <button
             onClick={confirmDeletePet}

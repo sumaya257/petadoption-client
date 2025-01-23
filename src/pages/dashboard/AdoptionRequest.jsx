@@ -58,7 +58,7 @@ const AdoptionRequest = () => {
             <h2 className="text-xl font-bold mb-4">Adoption Requests</h2>
             {adoptionRequests.length > 0 ? (
                 <table className="table-auto w-full border-collapse border border-gray-300">
-                    <thead>
+                    <thead className='dark:text-black'>
                         <tr className="bg-gray-100">
                             <th className="border border-gray-300 px-4 py-2">Name</th>
                             <th className="border border-gray-300 px-4 py-2">Email</th>

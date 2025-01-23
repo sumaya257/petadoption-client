@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../hooks/useAxiosPublic';
-import { AuthContext } from '../providers/AuthProvider';
 import { Link } from 'react-router';
 
 const DonationCampaigns = () => {
@@ -13,7 +11,11 @@ const DonationCampaigns = () => {
         
       try {
         const response = await axiosPublic.get('/donations'); // this matches your backend endpoint
-        const sortedDonations = response.data.sort((a, b) => new Date(b.lastDate) - new Date(a.lastDate)); // Sort by date (descending)
+        const sortedDonations = response.data.sort((a, b) => new Date(b.
+          createdAt
+          ) - new Date(a.
+            createdAt
+            )); // Sort by date (descending)
         setDonations(sortedDonations);
       } catch (error) {
         console.error('Error fetching donations:', error);
@@ -38,9 +40,9 @@ const DonationCampaigns = () => {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-xl font-semibold">{donation.name}</h3>
+              <h3 className="text-xl font-semibold dark:text-gray-700">{donation.name}</h3>
               <p className="text-gray-600">Max Donation: ${donation.maxDonation}</p>
-              <p className="text-gray-600">Donated: ${donation.donatedAmount || 0}</p>
+              <p className="text-gray-600">Donated: ${donation.totalDonation || 0}</p>
               <p className="text-gray-600">Last Date: {donation.lastDate}</p>
               <div className="mt-4">
                <Link to={`/donation-details/${donation._id}`}> <button className="bg-green-500 text-white py-2 px-4 rounded">

@@ -37,7 +37,7 @@ const User = () => {
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse border border-gray-300">
                     <thead>
-                        <tr className="bg-gray-200">
+                        <tr className="bg-gray-200 dark:text-black">
                             <th className="border border-gray-300 px-4 py-2">Profile Picture</th>
                             <th className="border border-gray-300 px-4 py-2">Name</th>
                             <th className="border border-gray-300 px-4 py-2">Email</th>

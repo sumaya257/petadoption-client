@@ -89,7 +89,7 @@ const AllPets = () => {
       <h2 className="text-2xl font-bold mb-4">All Pets</h2>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead className="bg-gray-200">
+          <thead className="bg-gray-200 dark:text-black">
             <tr>
               <th className="border border-gray-300 px-4 py-2">Name</th>
               <th className="border border-gray-300 px-4 py-2">Age</th>

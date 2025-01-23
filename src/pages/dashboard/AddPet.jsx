@@ -6,6 +6,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit'; // No need to import individual extensions
 import { AuthContext } from '../../providers/AuthProvider';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import Swal from 'sweetalert2';
 
 const AddPet = () => {
   const { user } = useContext(AuthContext);
@@ -47,8 +48,8 @@ const AddPet = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-green-100 shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold text-center text-primary">Add Your Pet</h2>
+    <div className="max-w-lg mx-auto p-6 bg-green-100 dark:text-black shadow-md rounded-lg">
+      <h2 className="text-2xl font-semibold text-center text-primary dark:text-black">Add Your Pet</h2>
       <Formik
         initialValues={{
           name: '',
@@ -83,6 +84,14 @@ const AddPet = () => {
 
             // Check if the backend response has `success: true`
             if (response.data.insertedId) {
+              Swal.fire({
+                            icon: "success",
+                            title: "Pet Added!",
+                            text: "Your adopt pet page has been created.",
+                            confirmButtonText: "OK",
+                            timer: 3000, // Optional: Auto-close after 3 seconds
+                            timerProgressBar: true,
+                          });
               console.log('Pet added successfully', response.data);
             } else {
               console.log('Error in response:', response.data.message || 'Unknown error');

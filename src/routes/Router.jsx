@@ -20,6 +20,7 @@ import DonationDetails from "../pages/DonationDetails";
 import User from "../pages/dashboard/AdminOnly/User";
 import AllPets from "../pages/dashboard/AdminOnly/AllPets";
 import AllDonations from "../pages/dashboard/AdminOnly/AllDonations";
+import ErrorPage from "../pages/ErrorPage";
 
 
 
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
     {
         path:'/',
         element:<MainLayout></MainLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/',

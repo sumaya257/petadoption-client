@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
@@ -31,7 +30,7 @@ const MyDonationCampaigns = () => {
     // Mutation for toggling pause/unpause
     const pauseMutation = useMutation({
         mutationFn: async (id) => {
-            const response = await axiosPrivate.put(`/dashboard/update-donation/${id}`);
+            const response = await axiosPrivate.put(`/dashboard/toggle-donation-paused/${id}`);
             return response.data;
         },
         onSuccess: () => {
@@ -66,7 +65,7 @@ const MyDonationCampaigns = () => {
             <h2 className="text-2xl font-bold mb-4">My Donation Campaigns</h2>
 
             <table className="table-auto w-full  border border-gray-300">
-                <thead>
+                <thead className="dark:text-black">
                     <tr className="bg-gray-100 text-left">
                         <th className="px-4 py-2">Campaign Name</th>
                         <th className="px-4 py-2">Max Donation</th>
@@ -127,7 +126,7 @@ const MyDonationCampaigns = () => {
 
             {/* Modal for viewing donators */}
             {modalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div className="fixed inset-0 bg-black dark:text-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded-lg w-1/3">
                         <h3 className="text-lg font-bold mb-4">Donators for the Campaign, Total: ${totalDonation}</h3>
                         <ul className="list-disc pl-5">

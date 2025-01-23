@@ -16,7 +16,8 @@ const useAddedPets = ({ search = '', category = '', adopted }) => {
       if (adopted !== undefined) params.adopted = adopted;
 
       // Send GET request with query params to the backend
-      const response = await axiosPrivate.get('/pets', { params });
+      const response = await axiosPrivate.get('/pets/search', { params });
+      console.log(response.data)
       return response.data; // Assume the backend returns the pets array
     },
     enabled: true, // Enables the query immediately

@@ -87,8 +87,8 @@ const UpdateDonation = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-green-100 shadow-md rounded-lg">
-      <h2 className="text-3xl font-bold text-center mb-6">Update Donation Campaign</h2>
+    <div className="max-w-lg mx-auto p-6 bg-green-100 dark:text-black shadow-md rounded-lg">
+      <h2 className="text-3xl font-bold text-center mb-6 dark:text-black">Update Donation Campaign</h2>
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         {/* Pet Picture Upload */}
         <div>

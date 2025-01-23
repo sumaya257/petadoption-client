@@ -45,7 +45,7 @@ const MyDonations = () => {
       ) : (
         <table className="table-auto w-full border border-gray-300">
           <thead>
-            <tr className="bg-gray-100 text-left">
+            <tr className="bg-gray-100 dark:text-black text-left">
               <th className="px-4 py-2">Pet Image</th>
               <th className="px-4 py-2">Pet Name</th>
               <th className="px-4 py-2">Donated Amount</th>

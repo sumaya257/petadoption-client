@@ -131,7 +131,7 @@ const CheckoutForm = ({ donationAmount, campaignId,petImage,petName }) => {
                     },
                 }}
             />
-            <button className='btn my-2 bg-green-500' type="submit" disabled={!stripe || !clientSecret}>
+            <button className='btn my-2 dark:bg-white dark:text-green-700 font-bold bg-green-500' type="submit" disabled={!stripe || !clientSecret}>
                 Pay
             </button>
             <p className="text-red-500 font-bold text-xs">{error}</p>

@@ -47,7 +47,7 @@ const PetListingPage = () => {
           <select
             value={category}
             onChange={handleCategoryChange}
-            className="px-4 py-2 border rounded"
+            className="px-4 py-2 border rounded dark:text-gray-600"
           >
             <option value="">Select Category</option>
             <option value="dog">Dog</option>
@@ -68,7 +68,7 @@ const PetListingPage = () => {
                 alt={pet.name}
                 className="w-full object-cover mb-4 rounded"
               />
-              <h2 className="text-xl font-semibold">{pet.name}</h2>
+              <h2 className="text-xl dark:text-gray-700 font-semibold">{pet.name}</h2>
               <p className="text-gray-600">Age: {pet.age}</p>
               <p className="text-gray-600">Location: {pet.location}</p>
               <div className="mt-4">

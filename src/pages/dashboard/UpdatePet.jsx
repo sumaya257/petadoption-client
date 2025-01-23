@@ -61,8 +61,8 @@ const UpdatePet = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-blue-100 shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold text-center text-primary">Update Pet</h2>
+    <div className="max-w-lg mx-auto p-6 bg-blue-100 dark:text-black shadow-md rounded-lg">
+      <h2 className="text-2xl font-semibold text-center text-primary dark:text-black">Update Pet</h2>
       <Formik
         enableReinitialize
         initialValues={{

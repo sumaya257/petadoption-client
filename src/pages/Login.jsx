@@ -185,13 +185,13 @@ const Login = () => {
               <FaGoogle size={20} className="text-red-500" />
               <span>Login with Google</span>
             </Button>
-            <Button
+            {/* <Button
               variant="outline"
               className="flex-1 flex items-center justify-center space-x-2 border-gray-300 hover:bg-gray-100"
             >
               <FaFacebook size={20} className="text-blue-500" />
               <span>Login with Facebook</span>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Register Link */}

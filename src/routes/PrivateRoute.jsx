@@ -9,8 +9,13 @@ const PrivateRoute = ({children}) => {
     const location = useLocation()
 
     if (loading) {
-        return <Skeleton height={100} width={300} count={3} />; // Skeleton loading state, you can customize the size and count
-    }
+        return (
+          <div className="flex justify-center items-center h-screen">
+            <Skeleton height={24} width={300} count={3} className="mb-4 rounded-md" />
+          </div>
+        );
+      }
+      
 
     if (user) {
         return children;

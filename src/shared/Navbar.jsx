@@ -1,3 +1,4 @@
+// src/components/Navbar.js
 import React, { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,10 +11,13 @@ import { NavLink } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 import Skeleton from "react-loading-skeleton";
+import { useTheme } from "../providers/ThemeContext";
+import { MdOutlineDarkMode } from "react-icons/md";
 
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
-  
+  const { isDark, toggleTheme } = useTheme();  // Access theme context
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogOut = () => {
@@ -34,14 +38,21 @@ const Navbar = () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center space-x-2">
-              {/* Profile Picture */}
-              <img
-                src={user.photoURL || "https://i.ibb.co.com/VWz30mJ/R.png"}  // Default image if no user image exists
-                alt="Profile"
-                className="w-16 h-16 bg-green-100 rounded-full"
-              />
-            </button>
+            <div className="relative group">
+              <button className="flex items-center space-x-2">
+                {/* Profile Picture */}
+                <img
+                  src={user.photoURL || "https://i.ibb.co/VWz30mJ/R.png"} // Default image if no user image exists
+                  alt="Profile"
+                  className="w-16 h-16 bg-green-100 rounded-full"
+                />
+              </button>
+              {/* Email Display */}
+              <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-max bg-gray-800 text-white text-sm rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {user.email || "No Email"}
+              </div>
+            </div>
+
           </DropdownMenuTrigger>
 
           <DropdownMenuContent className="w-56 bg-white shadow-lg">
@@ -60,7 +71,7 @@ const Navbar = () => {
         </DropdownMenu>
       );
     }
-    
+
     return (
       <>
         <Button variant="default" className="bg-green-500 text-white">
@@ -74,7 +85,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md mb-10 sticky inset-0 z-10">
+    <nav className="bg-white shadow-md mb-10 sticky inset-0 z-10 dark:bg-green-100">
       <div className="container mx-auto px-2 flex justify-between items-center">
         {/* Logo and Website Name */}
         <NavLink
@@ -101,6 +112,15 @@ const Navbar = () => {
             Donation Campaigns
           </NavLink>
         </div>
+
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className={`p-2 rounded-full mr-2 ${isDark ? "bg-black text-white" : "bg-white text-black"
+            }`}
+        >
+          <MdOutlineDarkMode size={24} />
+        </button>
 
         {/* Login/Register or Logout Buttons */}
         <div className="hidden md:flex items-center gap-4">
