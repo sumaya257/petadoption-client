@@ -6,7 +6,8 @@ Welcome to the **Pet Adoption Platform** – a place where compassion meets tech
 
 ## 🚀 **Live Demo**  
 🔗 [https://pet-adoption-6437b.web.app/](#)  
-
+- email- adoptnest@gmail.com
+- password- 12345aA!
 ---
 
 ## 🎯 **Features at a Glance**  
