@@ -8,7 +8,8 @@ A **MERN stack-based Pet Adoption Platform** that makes pet adoption and donatio
 ---
 
 # 🚀 **Live Demo**
-🔗 **[AdoptNest Live](https://pet-adoption-6437b.web.app/){:target="_blank"}**  
+🔗 <a href="https://pet-adoption-6437b.web.app/" target="_blank" rel="noopener noreferrer"><b>AdoptNest Live</b></a>
+
 
 ## 🎫 **Test Credentials**
 📧 **Email:** `adoptnest@gmail.com`  
