@@ -68,7 +68,7 @@ A **MERN stack-based Pet Adoption Platform** that makes pet adoption and donatio
 
 ## 1️⃣ **Clone the Repository**
 ```sh
-git clone https://github.com/sumaya257/AdoptNest.git
+git clone https://github.com/sumaya257/petadoption-client.git
 cd AdoptNest
 2️⃣ Install Dependencies
 sh
@@ -101,8 +101,6 @@ Database: MongoDB (Mongoose)
 Authentication: Firebase, JWT
 Payments: Stripe
 File Uploads: Cloudinary
-📊 Contributing
-We welcome contributions! Feel free to open an issue or submit a pull request.
 
 👤 Author
 Developed by Sumaya Tabassum (sumaya257)
