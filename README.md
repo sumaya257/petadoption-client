@@ -4,7 +4,6 @@
 
 # 🏡 **Welcome to AdoptNest!**
 A **MERN stack-based Pet Adoption Platform** that makes pet adoption and donations seamless. Our mission is to connect loving homes with pets in need while enabling hassle-free donations to support animal welfare organizations.
-<img src="https://i.ibb.co.com/QF8sGdpd/Screenshot-2025-02-05-141051.png" alt="AdoptNest Logo" style="max-width: 100%; height: auto;">
 
 ---
 
