@@ -6,6 +6,8 @@ import AboutUs from '../components/AboutUs';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import { Helmet } from 'react-helmet';
+import FeaturedPets from '../components/FeaturedPets';
+import Contact from '../components/ContactUs';
 
 const Home = () => {
     return (
@@ -13,9 +15,11 @@ const Home = () => {
             <Helmet><title>Home</title></Helmet>
             <Banner></Banner>
             <PetsCategory></PetsCategory>
+            <FeaturedPets></FeaturedPets>
             <CallToAction></CallToAction>
             <AboutUs></AboutUs>
             <Testimonials></Testimonials>
+            <Contact></Contact>
             <FAQ></FAQ>
         </div>
     );

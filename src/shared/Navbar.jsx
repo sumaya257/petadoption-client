@@ -17,6 +17,12 @@ import { MdOutlineDarkMode } from "react-icons/md";
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
   const { isDark, toggleTheme } = useTheme();  // Access theme context
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -114,6 +120,101 @@ const Navbar = () => {
           <NavLink to="/blogs" className="text-gray-800 hover:text-green-500">
             Blogs
           </NavLink>
+          {/* Add Dashboard Link for Logged In Users */}
+           {/* Main Dashboard Link */}
+       {/* Main Dashboard Link with Arrow */}
+       {user && (
+        <div className="relative">
+          <NavLink
+            to="/dashboard"
+            className="text-gray-800 hover:text-green-500 flex items-center"
+            onClick={toggleDropdown} // Toggle dropdown when clicked
+          >
+            Dashboard
+            <svg
+              className={`ml-2 h-5 w-5 transform transition-transform ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </NavLink>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="py-1">
+                {/* Routes for managing pets */}
+                <NavLink
+                  to="/dashboard/add-pet"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  Add Pet
+                </NavLink>
+                <NavLink
+                  to="/dashboard/my-added-pets"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  My Added Pets
+                </NavLink>
+                <NavLink
+                  to="/dashboard/adoption-request"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  Adoption Request
+                </NavLink>
+                <NavLink
+                  to="/dashboard/create-donation-campaign"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  Create Donation Campaign
+                </NavLink>
+                <NavLink
+                  to="/dashboard/my-donation-campaigns"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  My Donation Campaigns
+                </NavLink>
+                <NavLink
+                  to="/dashboard/my-donations"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  My Donations
+                </NavLink>
+
+                {/* Admin Routes */}
+                <NavLink
+                  to="/dashboard/all-users"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  All Users
+                </NavLink>
+                <NavLink
+                  to="/dashboard/all-pets"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  All Pets
+                </NavLink>
+                <NavLink
+                  to="/dashboard/all-donations"
+                  className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"
+                >
+                  All Donations
+                </NavLink>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
         </div>
 
         {/* Theme Toggle Button */}
