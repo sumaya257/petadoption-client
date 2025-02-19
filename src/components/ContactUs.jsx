@@ -36,10 +36,10 @@ const Contact = () => {
   };
 
   return (
-    <div id='contact' className="py-10 mt-16 contact-container flex flex-col md:flex-row px-10 space-y-10 md:space-y-0 shadow-[#F7CAC9] shadow-lg relative">
+    <div  className="bg-gradient-to-r from-green-100 to-green-500 text-black container mx-auto mt-16 py-6 px-4 rounded-2xl  contact-container flex flex-col md:flex-row  space-y-10 md:space-y-0 relative">
       {/* Left Side (Email Form) */}
       <div className="w-full md:w-1/2 bg-white p-8 shadow-lg rounded-lg">
-        <h2 className="text-4xl font-bold text-[#6B5B95] mb-8 text-center">Contact Me</h2>
+        <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
         <form ref={form} onSubmit={sendEmail} className="space-y-6">
           {/* Name Field */}
           <div>
@@ -60,44 +60,44 @@ const Contact = () => {
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="w-full py-3 bg-[#6B5B95] text-white font-semibold text-lg rounded-lg hover:bg-[#FF6F61] transition-all">Send Message</button>
+          <button type="submit" className="w-full py-3 bg-green-500 text-black font-semibold text-lg rounded-lg hover:bg-green-100 transition-all">Send Message</button>
         </form>
       </div>
 
       {/* Right Side (Contact Information) */}
       <div className="w-full md:w-1/2 bg-white p-6 shadow-lg rounded-lg">
-        <h2 className="text-4xl font-bold text-[#6B5B95] mb-6">Contact Information</h2>
+        <h2 className="text-4xl font-bold text-black mb-6">Contact Information</h2>
         <div className="space-y-6">
           <div className="flex items-center">
-            <FaMapMarkerAlt className="text-[#6B5B95] mr-4" />
+            <FaMapMarkerAlt className="text-green-600 mr-4" />
             <span className="text-lg">Dhaka, Bangladesh</span>
           </div>
           <div className="flex items-center">
-            <FaPhoneAlt className="text-[#6B5B95] mr-4" />
+            <FaPhoneAlt className="text-green-600 mr-4" />
             <span className="text-lg">+8801717521838</span>
           </div>
           <div className="flex items-center">
-            <FaEnvelope className="text-[#6B5B95] mr-4" />
+            <FaEnvelope className="text-green-600 mr-4" />
             <a href="mailto:sumayaece19@gmail.com" target="_blank">
-            <span className="text-lg underline decoration-[#6B5B95]">Email/sumaya</span>
+            <span className="text-lg underline decoration-green-600">Email/Adoption-Team</span>
             </a>
           </div>
           <div className="flex items-center">
-            <FaWhatsapp className="text-[#6B5B95] mr-4" />
+            <FaWhatsapp className="text-green-600 mr-4" />
             <a href="https://wa.me/+8801717521838" target="_blank">
-            <span className="text-lg underline decoration-[#6B5B95]">WhatsApp/sumaya</span>
+            <span className="text-lg underline decoration-green-600">WhatsApp/Adoption-Team</span>
             </a>
           </div>
           <div className="flex items-center">
-            <FaLinkedin className="text-[#6B5B95] mr-4" />
+            <FaLinkedin className="text-green-600 mr-4" />
             <a href="https://www.linkedin.com/in/sumaya-tabassum-tanna/" target="_blank" rel="noopener noreferrer">
-              <span className="text-lg underline decoration-[#6B5B95]">LinkedIn/sumaya</span>
+              <span className="text-lg underline decoration-green-600">LinkedIn/Adoption-Team</span>
             </a>
           </div>
           <div className="flex items-center">
-            <FaFacebook className="text-[#6B5B95] mr-4" />
+            <FaFacebook className="text-green-600 mr-4" />
             <a href="https://www.facebook.com/sumaya.tabassum.952448" target="_blank" rel="noopener noreferrer">
-              <span className="text-lg underline decoration-[#6B5B95]">FaceBook/sumaya</span>
+              <span className="text-lg underline decoration-green-600">FaceBook/Adoption-Team</span>
             </a>
           </div>
         </div>
@@ -105,7 +105,7 @@ const Contact = () => {
 
       {/* Arrow Animation */}
       <div className="absolute left-[-1/2] bottom-20 transform -translate-x-1/2 animate-ping">
-        <FaArrowCircleRight className="text-[#FF6F61] text-xl animate-ping-slow" />
+        <FaArrowCircleRight className="text-green-600 text-xl animate-ping-slow" />
       </div>
     </div>
   );
