@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { FaPaw, FaListAlt, FaHeart, FaBullhorn, FaDonate,FaTrophy,FaHandsHelping, FaUser } from 'react-icons/fa';
 import Navbar from '../shared/Navbar';
+import DashboardOverview from './dashboard/DashBoardOverView';
 import useAdmin from '../hooks/useAdmin';
 import { Helmet } from 'react-helmet';
 
@@ -109,6 +110,7 @@ const Dashboard = () => {
           </div>
           {/* Dynamic Content */}
           <div className="p-4 flex-1 overflow-auto">
+          <DashboardOverview></DashboardOverview>
             <Outlet />
           </div>
         </div>

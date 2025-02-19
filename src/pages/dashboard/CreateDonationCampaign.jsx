@@ -112,7 +112,7 @@ const CreateDonationCampaign = () => {
               name="name"
               onChange={formik.handleChange}
               value={formik.values.name}
-              className="block w-full border-2 p-2 rounded"
+              className="block w-full border-2 p-2 rounded bg-white"
               required
             />
           </div>
@@ -125,7 +125,7 @@ const CreateDonationCampaign = () => {
               name="maxDonation"
               onChange={formik.handleChange}
               value={formik.values.maxDonation}
-              className="block w-full border-2 p-2 rounded"
+              className="block w-full border-2 p-2 rounded bg-white"
               required
             />
           </div>
@@ -138,7 +138,7 @@ const CreateDonationCampaign = () => {
               name="lastDate"
               onChange={formik.handleChange}
               value={formik.values.lastDate}
-              className="block w-full border-2 p-2 rounded"
+              className="block w-full border-2 p-2 rounded bg-white"
               required
             />
           </div>
@@ -151,7 +151,7 @@ const CreateDonationCampaign = () => {
               name="shortDesc"
               onChange={formik.handleChange}
               value={formik.values.shortDesc}
-              className="block w-full border-2 p-2 rounded"
+              className="block w-full border-2 p-2 rounded bg-white"
               required
             />
           </div>
@@ -163,7 +163,7 @@ const CreateDonationCampaign = () => {
               name="longDesc"
               onChange={formik.handleChange}
               value={formik.values.longDesc}
-              className="block w-full border-2 p-2 rounded"
+              className="block w-full border-2 p-2 rounded bg-white"
               required
             />
           </div>

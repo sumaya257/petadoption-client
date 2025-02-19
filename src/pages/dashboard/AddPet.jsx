@@ -109,7 +109,7 @@ const AddPet = () => {
               <label className="label">Pet Image</label>
               <input
                 type="file"
-                className="file-input file-input-bordered w-full"
+                className="file-input file-input-bordered w-full bg-white"
                 onChange={handleImageUpload}
               />
               {imageUrl && <img src={imageUrl} alt="Pet" className="w-32 h-32 object-cover mt-2" />}
@@ -121,7 +121,7 @@ const AddPet = () => {
               <Field
                 name="name"
                 type="text"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white"
               />
               <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
             </div>
@@ -131,7 +131,7 @@ const AddPet = () => {
               <Field
                 name="age"
                 type="number"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white"
               />
               <ErrorMessage name="age" component="div" className="text-red-500 text-sm" />
             </div>
@@ -142,7 +142,7 @@ const AddPet = () => {
                 name="category"
                 component={Select}
                 options={categories}
-                className="select select-bordered w-full"
+                className="select select-bordered w-full bg-white"
                 onChange={(option) => setFieldValue('category', option.value)} // Handle React Select change
               />
               <ErrorMessage name="category" component="div" className="text-red-500 text-sm" />
@@ -153,7 +153,7 @@ const AddPet = () => {
               <Field
                 name="location"
                 type="text"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white"
               />
               <ErrorMessage name="location" component="div" className="text-red-500 text-sm" />
             </div>
@@ -163,9 +163,9 @@ const AddPet = () => {
               <Field
                 name="shortDescription"
                 type="text"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-white"
               />
-              <ErrorMessage name="shortDescription" component="div" className="text-red-500 text-sm" />
+              <ErrorMessage name="shortDescription" component="div" className="text-red-500 text-sm bg-white" />
             </div>
 
             {/* Tiptap Editor for Long Description */}
@@ -178,11 +178,11 @@ const AddPet = () => {
                   setFieldValue('longDescription', editor.getHTML());
                 }}
               />
-              <ErrorMessage name="longDescription" component="div" className="text-red-500 text-sm" />
+              <ErrorMessage name="longDescription" component="div" className="text-red-500 text-sm bg-white" />
             </div>
 
             <div className="form-control mt-6">
-              <button type="submit" className="btn bg-green-500 w-full">
+              <button type="submit" className="btn bg-green-500 w-full text-black">
                 Add Pet
               </button>
             </div>

@@ -49,6 +49,7 @@
     "react-select": "^5.9.0",
     "react-sidebar": "^3.0.2",
     "react-table": "^7.8.0",
+    "recharts": "^2.15.1",
     "sweetalert2": "^11.15.10",
     "swiper": "^11.2.1",
     "tailwind-merge": "^2.6.0",

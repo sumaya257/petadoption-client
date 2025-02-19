@@ -116,7 +116,7 @@ const MyAddedPets = () => {
                   <input
                     type="number"
                     value={index + 1 + pageIndex * pageSize} // Adjust serial number for pagination
-                    className="w-12 border border-gray-300 dark:bg-black text-center"
+                    className="w-12 border bg-white border-gray-300 dark:bg-black text-center"
                     readOnly
                   />
                 </td>
