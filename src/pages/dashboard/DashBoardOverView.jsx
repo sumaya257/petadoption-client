@@ -26,7 +26,7 @@ const DashboardOverview = () => {
           <FaPaw className="text-4xl mr-4" />
           <div>
             <p className="text-lg">Total Pets</p>
-            <p className="text-2xl font-bold">45</p>
+            <p className="text-2xl font-bold">14</p>
           </div>
         </div>
         <div className="bg-blue-500 text-white p-4 rounded-lg flex items-center">
@@ -40,7 +40,7 @@ const DashboardOverview = () => {
           <FaHeart className="text-4xl mr-4" />
           <div>
             <p className="text-lg">Total Adoptions</p>
-            <p className="text-2xl font-bold">30</p>
+            <p className="text-2xl font-bold">2</p>
           </div>
         </div>
       </div>

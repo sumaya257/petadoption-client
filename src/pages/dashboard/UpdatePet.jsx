@@ -100,7 +100,7 @@ const UpdatePet = () => {
               <label className="label">Pet Image</label>
               <input
                 type="file"
-                className="file-input file-input-bordered w-full"
+                className="file-input file-input-bordered w-full bg-white"
                 onChange={handleImageUpload}
               />
               {imageUrl && <img src={imageUrl} alt="Pet" className="w-32 h-32 object-cover mt-2" />}
@@ -108,13 +108,13 @@ const UpdatePet = () => {
 
             <div className="form-control">
               <label className="label">Pet Name</label>
-              <Field name="name" type="text" className="input input-bordered w-full" />
+              <Field name="name" type="text" className="input input-bordered w-full bg-white" />
               <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
             </div>
 
             <div className="form-control">
               <label className="label">Pet Age</label>
-              <Field name="age" type="number" className="input input-bordered w-full" />
+              <Field name="age" type="number" className="input input-bordered w-full bg-white" />
               <ErrorMessage name="age" component="div" className="text-red-500 text-sm" />
             </div>
 
@@ -129,7 +129,7 @@ const UpdatePet = () => {
                   { value: 'rabbit', label: 'Rabbit' },
                   { value: 'fish', label: 'Fish' },
                 ]}
-                className="select select-bordered w-full"
+                className="select select-bordered w-full bg-white"
                 onChange={(option) => setFieldValue('category', option.value)}
                 value={{ value: loaderData?.category, label: loaderData?.category }}
               />
@@ -138,13 +138,13 @@ const UpdatePet = () => {
 
             <div className="form-control">
               <label className="label">Pet Location</label>
-              <Field name="location" type="text" className="input input-bordered w-full" />
+              <Field name="location" type="text" className="input input-bordered w-full bg-white" />
               <ErrorMessage name="location" component="div" className="text-red-500 text-sm" />
             </div>
 
             <div className="form-control">
               <label className="label">Short Description</label>
-              <Field name="shortDescription" type="text" className="input input-bordered w-full" />
+              <Field name="shortDescription" type="text" className="input input-bordered w-full bg-white" />
               <ErrorMessage name="shortDescription" component="div" className="text-red-500 text-sm" />
             </div>
 

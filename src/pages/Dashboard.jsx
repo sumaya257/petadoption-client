@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { FaPaw, FaListAlt, FaHeart, FaBullhorn, FaDonate,FaTrophy,FaHandsHelping, FaUser } from 'react-icons/fa';
 import Navbar from '../shared/Navbar';
-import DashboardOverview from './dashboard/DashBoardOverView';
 import useAdmin from '../hooks/useAdmin';
 import { Helmet } from 'react-helmet';
 
@@ -25,6 +24,7 @@ const Dashboard = () => {
           <nav className="flex flex-col space-y-2 p-4 flex-1">
             {isAdmin ? (
               <>
+
               <NavLink to='profile' className={navLinkClass}>
               <FaUser className="mr-2" />
               My Profile
@@ -110,7 +110,6 @@ const Dashboard = () => {
           </div>
           {/* Dynamic Content */}
           <div className="p-4 flex-1 overflow-auto">
-          <DashboardOverview></DashboardOverview>
             <Outlet />
           </div>
         </div>

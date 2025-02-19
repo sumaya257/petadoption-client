@@ -119,7 +119,7 @@ const Register = () => {
                     name="name"
                     type="text"
                     placeholder="Enter your name"
-                    className="mt-2 w-full border-gray-300 rounded-lg p-2"
+                    className="mt-2 w-full border-gray-300 rounded-lg p-2 bg-white"
                   />
                   <ErrorMessage
                     name="name"
@@ -137,7 +137,7 @@ const Register = () => {
                     name="email"
                     type="email"
                     placeholder="Enter your email"
-                    className="mt-2 w-full border-gray-300 rounded-lg p-2"
+                    className="mt-2 w-full border-gray-300 rounded-lg p-2 bg-white"
                   />
                   <ErrorMessage
                     name="email"
@@ -155,7 +155,7 @@ const Register = () => {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className="mt-2 w-full border-gray-300 rounded-lg p-2 pr-10"
+                    className="mt-2 w-full border-gray-300 bg-white rounded-lg p-2 pr-10"
                   />
                   {/* Toggle Password Visibility */}
                   <button
@@ -181,7 +181,7 @@ const Register = () => {
                     name="image"
                     type="text"
                     placeholder="Enter image URL"
-                    className="mt-2 w-full border-gray-300 rounded-lg p-2"
+                    className="mt-2 w-full border-gray-300 bg-white rounded-lg p-2"
                   />
                   <ErrorMessage
                     name="image"

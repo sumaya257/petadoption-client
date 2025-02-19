@@ -23,6 +23,7 @@ import AllDonations from "../pages/dashboard/AdminOnly/AllDonations";
 import ErrorPage from "../pages/ErrorPage";
 import Blog from "../components/Blog";
 import Profile from "../pages/dashboard/Profile";
+import DashboardOverview from "../pages/dashboard/DashBoardOverView";
 
 
 export const router = createBrowserRouter([
@@ -72,6 +73,12 @@ export const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
+
+          { 
+            index: true,
+            element: <DashboardOverview></DashboardOverview>
+          },
+
           {
             path: 'profile',
             element: <Profile></Profile>
