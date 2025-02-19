@@ -47,7 +47,7 @@ const Blog = () => {
         <AnimatePresence mode="wait">
           <motion.h2
             key={titles[currentTitleIndex]} // Key ensures re-render
-            className="absolute text-5xl md:text-6xl font-extrabold text-green-500 drop-shadow-lg"
+            className="absolute text-4xl  font-bold text-green-500 drop-shadow-lg"
             initial={{ x: "100%", opacity: 0 }} // Start at right, hidden
             animate={{ x: "0%", opacity: 1 }} // Slide in to center
             exit={{ x: "-100%", opacity: 0 }} // Slide out to left
@@ -69,7 +69,7 @@ const Blog = () => {
             transition={{ duration: 0.6, delay: index * 0.4 }} // Sequential appearance
           >
             <motion.h3 
-              className="text-3xl font-bold text-green-600"
+              className="text-2xl font-bold text-green-600"
               animate={{ x: [-5, 5, -5] }}
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
             >

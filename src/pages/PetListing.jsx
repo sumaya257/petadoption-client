@@ -38,7 +38,7 @@ const PetListingPage = () => {
       <Helmet>
         <title>Pet-Listing</title>
       </Helmet>
-      <h1 className="text-3xl font-semibold mb-4">Available Pets for Adoption</h1>
+      <h1 className="text-4xl font-semibold mb-4">Available Pets for Adoption</h1>
 
       {/* Search and Category Filters */}
       <form
@@ -51,7 +51,7 @@ const PetListingPage = () => {
             type="text"
             value={search}
             onChange={handleSearchChange}
-            className="px-4 py-2 border rounded w-80"
+            className="px-4 py-2 border rounded w-80 bg-white text-green-600 font-bold"
             placeholder="Search by name"
           />
         </div>
@@ -61,7 +61,7 @@ const PetListingPage = () => {
           <select
             value={category}
             onChange={handleCategoryChange}
-            className="px-4 py-2 border rounded dark:text-gray-600"
+            className="px-4 py-2 border rounded dark:text-gray-600 bg-white"
           >
             <option value="">Select Category</option>
             <option value="dog">Dog</option>

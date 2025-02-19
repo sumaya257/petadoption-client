@@ -154,6 +154,10 @@ const Navbar = () => {
             <div className="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
                 {/* Routes for managing pets */}
+                <NavLink to='profile' className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm">
+                              
+                              My Profile
+                              </NavLink>
                 <NavLink
                   to="/dashboard/add-pet"
                   className="block text-gray-700 hover:bg-gray-100 px-4 py-2 text-sm"

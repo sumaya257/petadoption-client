@@ -22,6 +22,7 @@ import AllPets from "../pages/dashboard/AdminOnly/AllPets";
 import AllDonations from "../pages/dashboard/AdminOnly/AllDonations";
 import ErrorPage from "../pages/ErrorPage";
 import Blog from "../components/Blog";
+import Profile from "../pages/dashboard/Profile";
 
 
 export const router = createBrowserRouter([
@@ -71,6 +72,11 @@ export const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
+          {
+            path: 'profile',
+            element: <Profile></Profile>
+          },
+
           {
             path: 'add-pet',
             element: <AddPet></AddPet>
