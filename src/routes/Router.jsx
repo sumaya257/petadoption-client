@@ -21,6 +21,7 @@ import User from "../pages/dashboard/AdminOnly/User";
 import AllPets from "../pages/dashboard/AdminOnly/AllPets";
 import AllDonations from "../pages/dashboard/AdminOnly/AllDonations";
 import ErrorPage from "../pages/ErrorPage";
+import Blog from "../components/Blog";
 
 
 export const router = createBrowserRouter([
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
                 path:'/donation-campaigns',
                 element:<DonationCampaigns></DonationCampaigns>
             },
+            {
+              path:'/blogs',
+              element:<Blog></Blog>
+          },
             {
                 path:'/login',
                 element:<Login></Login>

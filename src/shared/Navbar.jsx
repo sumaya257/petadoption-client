@@ -111,6 +111,9 @@ const Navbar = () => {
           <NavLink to="/donation-campaigns" className="text-gray-800 hover:text-green-500">
             Donation Campaigns
           </NavLink>
+          <NavLink to="/blogs" className="text-gray-800 hover:text-green-500">
+            Blogs
+          </NavLink>
         </div>
 
         {/* Theme Toggle Button */}
