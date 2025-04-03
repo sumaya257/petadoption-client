@@ -111,13 +111,13 @@ const Navbar = () => {
           <NavLink to="/" className="text-gray-800 hover:text-green-500 hover:btn">
             Home
           </NavLink>
-          <NavLink to="/pet-listing" className="text-gray-800 hover:text-green-500">
+          <NavLink to="/pet-listing" className="text-gray-800 hover:text-green-500 hover:btn">
             Pet Listing
           </NavLink>
-          <NavLink to="/donation-campaigns" className="text-gray-800 hover:text-green-500">
+          <NavLink to="/donation-campaigns" className="text-gray-800 hover:text-green-500 hover:btn">
             Donation Campaigns
           </NavLink>
-          <NavLink to="/blogs" className="text-gray-800 hover:text-green-500">
+          <NavLink to="/blogs" className="text-gray-800 hover:text-green-500 hover:btn">
             Blogs
           </NavLink>
           {/* Add Dashboard Link for Logged In Users */}

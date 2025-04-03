@@ -33,7 +33,7 @@ const DashboardOverview = () => {
           <FaDonate className="text-4xl mr-4" />
           <div>
             <p className="text-lg">Total Donations</p>
-            <p className="text-2xl font-bold">80</p>
+            <p className="text-2xl font-bold">18</p>
           </div>
         </div>
         <div className="bg-red-500 text-white p-4 rounded-lg flex items-center">
