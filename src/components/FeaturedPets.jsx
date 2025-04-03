@@ -2,9 +2,9 @@ import React from 'react';
 import useAddedPets from '../hooks/useAddedPets';  // Import the hook
 
 const FeaturedPets = () => {
-  // Fetch added pets using the useAddedPets hook (no filters)
+  // Fetch added pets using the useAddedPets hook 
   const { pets, isLoading, isError, error } = useAddedPets({
-    // You can add filters here if needed in the future
+    // can add filters here if needed in the future
   });
 
   // Handle loading state

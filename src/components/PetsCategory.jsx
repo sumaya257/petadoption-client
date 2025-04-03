@@ -1,16 +1,24 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 const categories = [
-    { name: "Cats", image: "https://i.ibb.co.com/XyCGVrN/pexels-pixabay-416160.jpg" },
-    { name: "Dogs", image: "https://i.ibb.co.com/dD9GZDb/pexels-chevanon-1108099.jpg" },
+    { name: "Cat", image: "https://i.ibb.co.com/XyCGVrN/pexels-pixabay-416160.jpg" },
+    { name: "Dog", image: "https://i.ibb.co.com/dD9GZDb/pexels-chevanon-1108099.jpg" },
     { name: "Rabbit", image: "https://i.ibb.co.com/0KQ0CBs/pexels-pixabay-247373.jpg" },
     { name: "Fish", image: "https://i.ibb.co.com/Ctdy3Cj/pexels-crisdip-35358-128756.jpg" },
 ];
 
+
+
 const PetsCategory = () => {
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (category) => {
+        navigate(`/pet-listing?category=${category.toLowerCase()}`); // Redirect with category
+    };
     return (
-        <div className="bg-green-50 rounded-2xl mt-16 py-6 px-4 container mx-auto">
+        <div className="bg-green-50 rounded-2xl mt-16 py-6 px-4 container mx-auto text-black">
             <div className="container mx-auto text-center">
             <h2 className="text-4xl font-bold mb-4">
                 Explore Pet Categories
@@ -36,6 +44,7 @@ const PetsCategory = () => {
                             backgroundPosition: "center",
                             height: "200px",
                         }}
+                        onClick={() => handleCategoryClick(category.name)}
                     >
                         <h3 className="text-white text-lg font-bold bg-opacity-70 bg-green-500 p-2 rounded-r-lg">
                             {category.name}

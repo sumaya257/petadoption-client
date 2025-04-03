@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import useAddedPets from '../hooks/useAddedPets';
 import { Helmet } from 'react-helmet';
 import Skeleton from 'react-loading-skeleton';
 
 const PetListingPage = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryFromUrl = queryParams.get("category") || "";
+
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(categoryFromUrl); // Set initial category from URL
+
   const { pets, isLoading, isError, error, refetch } = useAddedPets({
     search,
     category,
-    adopted: false, // Fetch only pets that are not adopted
+    adopted: false, // Fetch only available pets
   });
+
+  // Update category when URL changes
+  useEffect(() => {
+    setCategory(categoryFromUrl);
+  }, [categoryFromUrl]);
 
   // Handler for search input change
   const handleSearchChange = (e) => {
@@ -24,13 +34,13 @@ const PetListingPage = () => {
   };
 
   if (isLoading) {
-          return (
-            <div className="flex justify-center items-center h-screen">
-              <Skeleton height={24} width={300} count={3} className="mb-4 rounded-md" />
-            </div>
-          );
-        }
-        
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Skeleton height={24} width={300} count={3} className="mb-4 rounded-md" />
+      </div>
+    );
+  }
+
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -41,10 +51,7 @@ const PetListingPage = () => {
       <h1 className="text-4xl font-semibold mb-4">Available Pets for Adoption</h1>
 
       {/* Search and Category Filters */}
-      <form
-        onSubmit={(e) => e.preventDefault()} // Prevent form submission
-        className="mb-6 flex gap-4 items-center"
-      >
+      <form onSubmit={(e) => e.preventDefault()} className="mb-6 flex gap-4 items-center">
         {/* Search Input */}
         <div>
           <input
@@ -63,9 +70,9 @@ const PetListingPage = () => {
             onChange={handleCategoryChange}
             className="px-4 py-2 border rounded dark:text-gray-600 bg-white"
           >
-            <option value="">Select Category</option>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
+            <option value="">All Categories</option>
+            <option value="dogs">Dogs</option>
+            <option value="cats">Cats</option>
             <option value="rabbit">Rabbit</option>
             <option value="fish">Fish</option>
           </select>
@@ -87,7 +94,7 @@ const PetListingPage = () => {
               <p className="text-gray-600">Location: {pet.location}</p>
               <div className="mt-4">
                 <Link
-                  to={`/pet-listing/${pet._id}`} // Link to view details
+                  to={`/pet-listing/${pet._id}`}
                   className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 >
                   View Details
